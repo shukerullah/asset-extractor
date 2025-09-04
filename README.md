@@ -1,36 +1,157 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎮 Game Asset Extractor
 
-## Getting Started
+A powerful web application for extracting transparent PNG assets from AI-generated images using local AI background removal.
 
-First, run the development server:
+![Next.js](https://img.shields.io/badge/Next.js-15.5.2-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![Python](https://img.shields.io/badge/Python-3.11-green)
+![AI Powered](https://img.shields.io/badge/AI-rembg-red)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## ✨ Features
+
+- **🎯 Interactive Selection**: Click and drag to select objects from images
+- **🤖 AI Background Removal**: Local processing with multiple AI models (u2net, u2netp, etc.)
+- **🔄 Batch Processing**: Process multiple selections simultaneously
+- **📱 Responsive Design**: Works on desktop and mobile devices
+- **⚡ Offline Capable**: No external API dependencies
+- **🎨 Professional UI**: Beautiful CSS modules with animations
+- **📦 Easy Downloads**: Individual or bulk asset downloads
+- **🛡️ Production Ready**: Rate limiting, error monitoring, and security headers
+- **🐳 Docker Support**: One-click deployment with Docker
+- **📊 Performance Metrics**: Built-in monitoring and optimization
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- **Node.js** 18+ 
+- **Python** 3.8+
+- **pnpm** (recommended) or npm
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <your-repo-url>
+   cd asset-extractor
+   ```
+
+2. **Install dependencies**
+   ```bash
+   pnpm install
+   pip3 install rembg onnxruntime
+   ```
+
+3. **Run development server**
+   ```bash
+   pnpm dev
+   ```
+
+4. **Open your browser**
+   ```
+   http://localhost:3000
+   ```
+
+## 🎨 How to Use
+
+1. **Upload Image**: Click or drag & drop an image
+2. **Select Objects**: Click and drag to create circular selections
+3. **Generate Assets**: Click "Generate Assets" to process selections
+4. **Download**: Download individual assets or all at once
+
+## 🏗️ Architecture
+
+### Frontend (Next.js + TypeScript)
+- **App Router**: Modern Next.js routing
+- **CSS Modules**: Scoped styling with animations
+- **TypeScript**: Full type safety
+- **AAA Pattern**: Arrange, Act, Assert structure
+
+### Backend (Python + AI)
+- **rembg Library**: State-of-the-art background removal
+- **Multiple Models**: u2net, u2netp, u2net_human_seg, etc.
+- **Local Processing**: No external API dependencies
+- **Automatic Cleanup**: Temporary file management
+
+### API Design
+```
+POST /api/remove-background
+- Accepts: multipart/form-data with image file
+- Returns: PNG with transparent background
+- Timeout: 5 minutes (for model downloads)
+- Error Handling: Graceful fallbacks
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔧 Production Deployment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Quick Deploy with Docker
+```bash
+./deploy.sh
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Manual Build
+```bash
+pnpm build
+pnpm start
+```
 
-## Learn More
+### Docker Compose
+```bash
+docker-compose up -d
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Environment Setup
+- Ensure Python 3.8+ is available
+- Pre-download AI models for faster first use
+- Configure appropriate timeout values
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+📋 **See [DEPLOYMENT.md](./DEPLOYMENT.md) for comprehensive deployment guide**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🎯 Performance & Security
 
-## Deploy on Vercel
+### Performance Optimizations
+- **Model Caching**: AI models download once, cached locally
+- **Bundle Optimization**: 117KB first load JS size  
+- **Static Generation**: Pre-rendered pages for faster loading
+- **Automatic Cleanup**: Prevents disk bloat
+- **Rate Limiting**: 5 requests/minute per IP
+- **Response Caching**: 1-hour cache for processed images
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Security Features
+- **Input Validation**: File size, type, and content validation
+- **Security Headers**: CSRF, XSS, and content-type protection
+- **Rate Limiting**: Prevents API abuse
+- **Error Monitoring**: Built-in logging and monitoring
+- **Temp File Cleanup**: Automatic cleanup prevents data leaks
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📁 Project Structure
+
+```
+src/
+├── app/                               # Next.js app router
+├── components/                        # Reusable UI components
+├── services/                         # Business logic & API calls
+├── types/                           # TypeScript definitions
+├── utils/                           # Helper functions
+└── middleware.ts                    # Security & rate limiting
+
+scripts/
+└── remove_background.py            # Python AI processing script
+```
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+1. **"Module not found: rembg"**
+   ```bash
+   pip3 install rembg onnxruntime
+   ```
+
+2. **"Model download timeout"**
+   - Wait for initial model download (~176MB)
+   - Subsequent uses will be instant
+
+---
+
+**Built with ❤️ using Next.js, TypeScript, and AI**
