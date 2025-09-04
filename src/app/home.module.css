@@ -108,11 +108,29 @@
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
+/* Selection Info */
+.selectionInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9em;
+  color: #666;
+  padding: 8px 16px;
+  background: #f8f9fa;
+  border-radius: 20px;
+  border: 1px solid #e9ecef;
+}
+
+.selectionInfo span {
+  font-weight: 500;
+}
+
 /* Controls */
 .controls {
   display: flex;
   gap: 15px;
   justify-content: center;
+  align-items: center;
   margin: 20px 0;
   flex-wrap: wrap;
 }

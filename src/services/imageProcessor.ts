@@ -6,7 +6,7 @@ import type { Selection } from '@/types';
  */
 export class ImageProcessor {
   /**
-   * Crop selection from image
+   * Crop rectangular selection from image
    */
   static async cropSelection(
     imageElement: HTMLImageElement,
@@ -21,20 +21,25 @@ export class ImageProcessor {
       throw new Error('Cannot get 2D context');
     }
 
-    // Act: Calculate dimensions and draw
-    const size = selection.radius * 2;
-    canvas.width = size;
-    canvas.height = size;
+    // Act: Set canvas dimensions to match selection
+    canvas.width = selection.width;
+    canvas.height = selection.height;
 
     // Calculate scale from canvas to original image
     const scale = imageElement.width / canvasSize.width;
     
-    const sx = (selection.x - selection.radius) * scale;
-    const sy = (selection.y - selection.radius) * scale;
-    const sw = size * scale;
-    const sh = size * scale;
+    // Calculate source rectangle coordinates in original image
+    const sx = selection.x * scale;
+    const sy = selection.y * scale;
+    const sw = selection.width * scale;
+    const sh = selection.height * scale;
 
-    ctx.drawImage(imageElement, sx, sy, sw, sh, 0, 0, size, size);
+    // Draw the cropped rectangle
+    ctx.drawImage(
+      imageElement, 
+      sx, sy, sw, sh,              // Source rectangle
+      0, 0, selection.width, selection.height  // Destination rectangle
+    );
     
     // Assert: Return blob
     return new Promise<Blob>((resolve, reject) => {
