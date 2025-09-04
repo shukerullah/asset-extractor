@@ -1,4 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+import { writeFile, readFile, unlink } from 'fs/promises';
+import { join } from 'path';
+import { randomUUID } from 'crypto';
+
+const execAsync = promisify(exec);
 
 // Types
 interface ApiError {
@@ -7,6 +14,9 @@ interface ApiError {
 
 // API Route Handler
 export async function POST(request: NextRequest): Promise<NextResponse<ApiError> | NextResponse> {
+  let inputPath: string | null = null;
+  let outputPath: string | null = null;
+
   try {
     // Arrange: Get form data and validate file
     const formData = await request.formData();
@@ -19,66 +29,89 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiError>
       );
     }
 
-    // Act: Process the image
+    console.log('🔄 Processing image with local Python script...');
+    console.log('📊 File info:', { name: file.name, size: file.size, type: file.type });
+
+    // Act: Process the image using local Python script
     const imageBuffer = Buffer.from(await file.arrayBuffer());
-    const result = await removeBackgroundHF(imageBuffer);
+    const result = await removeBackgroundLocal(imageBuffer);
     
-    // Assert: Return processed result or fallback
-    if (result) {
-      return new NextResponse(new Uint8Array(result), {
-        headers: { 
-          'Content-Type': 'image/png',
-          'Cache-Control': 'no-cache'
-        }
-      });
-    } else {
-      // Fallback: return original image
-      return new NextResponse(new Uint8Array(imageBuffer), {
-        headers: { 
-          'Content-Type': 'image/png',
-          'Cache-Control': 'no-cache'
-        }
-      });
-    }
+    // Assert: Return processed result
+    return new NextResponse(new Uint8Array(result), {
+      headers: { 
+        'Content-Type': 'image/png',
+        'Cache-Control': 'no-cache'
+      }
+    });
 
   } catch (error) {
-    console.error('Background removal error:', error);
+    console.error('❌ Background removal error:', error);
     return NextResponse.json(
-      { error: 'Processing failed' },
+      { error: error instanceof Error ? error.message : 'Processing failed' },
       { status: 500 }
     );
+  } finally {
+    // Cleanup temporary files
+    if (inputPath) {
+      try { await unlink(inputPath); } catch {}
+    }
+    if (outputPath) {
+      try { await unlink(outputPath); } catch {}
+    }
   }
 }
 
-// Background Removal Service
-async function removeBackgroundHF(imageBuffer: Buffer): Promise<Buffer | null> {
+// Local Background Removal Service
+async function removeBackgroundLocal(imageBuffer: Buffer): Promise<Buffer> {
+  const tempId = randomUUID();
+  const tempDir = join(process.cwd(), 'temp');
+  const inputPath = join(tempDir, `input_${tempId}.png`);
+  const outputPath = join(tempDir, `output_${tempId}.png`);
+  const scriptPath = join(process.cwd(), 'scripts', 'remove_background.py');
+
   try {
-    // Arrange: Prepare headers and API call
-    const headers: HeadersInit = {
-      'Content-Type': 'application/octet-stream',
-    };
+    console.log('📁 Creating temp directory...');
+    
+    // Create temp directory if it doesn't exist
+    await execAsync(`mkdir -p "${tempDir}"`);
 
-    if (process.env.HUGGINGFACE_API_TOKEN) {
-      (headers as Record<string, string>)['Authorization'] = `Bearer ${process.env.HUGGINGFACE_API_TOKEN}`;
+    console.log('💾 Saving input image to:', inputPath);
+    
+    // Save input image to temporary file
+    await writeFile(inputPath, imageBuffer);
+
+    console.log('🐍 Running Python script...');
+    
+    // Run Python script
+    const command = `python3 "${scriptPath}" "${inputPath}" "${outputPath}" --model u2net --verbose`;
+    console.log('🚀 Command:', command);
+    
+    const { stdout, stderr } = await execAsync(command, { timeout: 300000 }); // 5 minute timeout (for model download)
+    
+    if (stderr) {
+      console.log('📄 Python stderr:', stderr);
+    }
+    if (stdout) {
+      console.log('📄 Python stdout:', stdout);
     }
 
-    // Act: Call Hugging Face API
-    const response = await fetch('https://api-inference.huggingface.co/models/briaai/RMBG-1.4', {
-      method: 'POST',
-      headers,
-      body: new Uint8Array(imageBuffer)
-    });
-
-    // Assert: Check response and return result
-    if (!response.ok) {
-      throw new Error(`HuggingFace API error: ${response.status}`);
-    }
-
-    const result = await response.arrayBuffer();
-    return Buffer.from(result);
+    console.log('📖 Reading processed image...');
+    
+    // Read the processed image
+    const resultBuffer = await readFile(outputPath);
+    
+    console.log('✅ Background removal completed successfully!');
+    console.log('📊 Result size:', resultBuffer.length, 'bytes');
+    
+    return resultBuffer;
 
   } catch (error) {
-    console.error('HuggingFace API failed:', error);
-    return null;
+    console.error('❌ Local background removal failed:', error);
+    
+    // If Python script fails, return original image as fallback
+    console.log('🔄 Using fallback: returning original image');
+    return imageBuffer;
+  } finally {
+    // Cleanup happens in the main finally block
   }
 }
