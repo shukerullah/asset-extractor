@@ -1,5 +1,7 @@
 'use client';
 
+import styles from '../app/home.module.css';
+
 interface ProgressBarProps {
   progress: number;
   message?: string;
@@ -12,15 +14,15 @@ interface ProgressBarProps {
  */
 export default function ProgressBar({ progress, message, className = '' }: ProgressBarProps) {
   return (
-    <div className={`w-full ${className}`}>
-      <div className="bg-gray-200 rounded-full h-3 mb-2 overflow-hidden">
+    <div className={className}>
+      <div className={styles.progressBar}>
         <div 
-          className="bg-blue-600 h-full transition-all duration-300 ease-out rounded-full"
+          className={styles.progressFill}
           style={{ width: `${Math.min(Math.max(progress, 0), 100)}%` }}
         />
       </div>
       {message && (
-        <p className="text-sm text-gray-600 text-center">
+        <p style={{ textAlign: 'center', color: '#666' }}>
           {Math.round(progress)}% - {message}
         </p>
       )}

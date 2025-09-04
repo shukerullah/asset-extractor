@@ -3,6 +3,7 @@
 import { useRef, useEffect, useCallback } from 'react';
 import type { SelectionCanvasProps } from '@/types';
 import { ImageProcessor } from '@/services/imageProcessor';
+import styles from '../app/home.module.css';
 
 /**
  * Selection Canvas Component
@@ -138,24 +139,16 @@ export default function SelectionCanvas({
   }, [disabled, currentSelection, onSelectionComplete]);
 
   return (
-    <div className="flex flex-col items-center space-y-4">
-      <div className="bg-white p-4 rounded-lg shadow-lg">
-        <canvas
-          ref={canvasRef}
-          className={`border border-gray-300 rounded ${disabled ? 'cursor-not-allowed' : 'cursor-crosshair'}`}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          style={{ maxWidth: '100%', height: 'auto' }}
-        />
-      </div>
-      
-      <div className="text-sm text-gray-600 text-center max-w-md">
-        <p><strong>Instructions:</strong></p>
-        <p>• Click and drag to select objects</p>
-        <p>• Multiple selections are supported</p>
-        <p>• Generate extracts transparent PNGs</p>
-      </div>
-    </div>
+    <canvas
+      ref={canvasRef}
+      className={styles.canvas}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      style={{ 
+        cursor: disabled ? 'not-allowed' : 'crosshair',
+        opacity: disabled ? 0.7 : 1
+      }}
+    />
   );
 }

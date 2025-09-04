@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from 'react';
 import type { ImageUploaderProps } from '@/types';
+import styles from '../app/home.module.css';
 
 /**
  * Image Uploader Component
@@ -38,38 +39,28 @@ export default function ImageUploader({ onImageUpload, disabled = false }: Image
   }, [onImageUpload]);
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      <label 
-        htmlFor="fileInput"
-        className={`
-          block w-full p-8 border-2 border-dashed rounded-lg cursor-pointer
-          transition-all duration-200 hover:bg-gray-50
-          ${isDragging ? 'border-blue-500 bg-blue-50' : 'border-gray-300'}
-          ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
-        `}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-      >
-        <div className="text-center">
-          <div className="text-4xl mb-4">📁</div>
-          <h3 className="text-lg font-semibold mb-2">Upload your image</h3>
-          <p className="text-gray-600">
-            {isDragging ? 'Drop image here' : 'Click to browse or drag & drop'}
-          </p>
-          <p className="text-sm text-gray-500 mt-2">
-            Supports: JPG, PNG, GIF, WebP
-          </p>
-        </div>
-        <input
-          id="fileInput"
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-          disabled={disabled}
-          className="hidden"
-        />
-      </label>
-    </div>
+    <label 
+      htmlFor="fileInput"
+      className={`${styles.uploadArea} ${isDragging ? styles.dragover : ''}`}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      style={{ opacity: disabled ? 0.6 : 1, cursor: disabled ? 'not-allowed' : 'pointer' }}
+    >
+      <div className={styles.uploadIcon}>📁</div>
+      <h3>Upload your image</h3>
+      <p>{isDragging ? 'Drop image here' : 'Click to browse or drag & drop'}</p>
+      <p style={{ fontSize: '0.9em', color: '#999', marginTop: '10px' }}>
+        Supports: JPG, PNG, GIF, WebP
+      </p>
+      <input
+        id="fileInput"
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        disabled={disabled}
+        style={{ display: 'none' }}
+      />
+    </label>
   );
 }
