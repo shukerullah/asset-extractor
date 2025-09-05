@@ -409,24 +409,30 @@ export default function AssetExtractorApp() {
           <h2>Example</h2>
           <div className={styles.exampleContent}>
             <div className={styles.sourceImage}>
-              <div className={styles.exampleHouse}>
-                <div className={styles.house}>
-                  <div className={styles.roof}></div>
-                  <div className={styles.walls}></div>
-                  <div className={styles.door}></div>
-                </div>
-                <div className={styles.tree}></div>
-                <div className={styles.tree2}></div>
-                <div className={styles.ground}></div>
-              </div>
+              <Image
+                src="/assets/village_with-background.png"
+                alt="Village with background - source image"
+                fill
+                style={{ objectFit: "cover" }}
+              />
             </div>
             <div className={styles.rightSide}>
               <div className={styles.extractedObjects}>
                 <div className={styles.extractedItem}>
-                  <div className={styles.tree}></div>
+                  <Image
+                    src="/assets/mill.png"
+                    alt="Extracted mill"
+                    fill
+                    style={{ objectFit: "contain" }}
+                  />
                 </div>
                 <div className={styles.extractedItem}>
-                  <div className={styles.tree2}></div>
+                  <Image
+                    src="/assets/castle.png"
+                    alt="Extracted castle"
+                    fill
+                    style={{ objectFit: "contain" }}
+                  />
                 </div>
               </div>
               <div className={styles.uploadSection}>
