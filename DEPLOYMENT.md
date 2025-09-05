@@ -1,200 +1,239 @@
-# 🚀 Deployment Guide
+# 🚀 Deployment Guide - Vercel + Railway Architecture
 
-This document provides comprehensive instructions for deploying the Asset Extractor application in various environments.
+Modern cloud deployment using Vercel (frontend) and Railway (backend) for optimal performance and scalability.
+
+## 🏗️ Architecture Overview
+
+```
+┌─────────────┐    API calls    ┌──────────────┐
+│   Vercel    │ ──────────────→ │   Railway    │
+│  (Frontend) │                 │  (Backend)   │
+│   Next.js   │                 │   FastAPI    │
+└─────────────┘                 └──────────────┘
+```
+
+**Frontend (Vercel)**: Next.js app with static assets and UI
+**Backend (Railway)**: FastAPI Python service for AI background removal
 
 ## 📋 Prerequisites
 
-- **Docker** 20.10+ (recommended)
-- **Node.js** 18+ (for non-Docker deployments)
-- **Python** 3.8+ with pip
-- **2GB+ RAM** (for AI model processing)
-- **10GB+ storage** (for models and temporary files)
+- **Vercel Account** - [vercel.com](https://vercel.com) (free tier)
+- **Railway Account** - [railway.app](https://railway.app) (~$5/month)
+- **Git Repository** - GitHub, GitLab, or Bitbucket
+- **Domain** (optional) - Custom domain for production
 
-## 🐳 Docker Deployment (Recommended)
+## 🚂 Step 1: Deploy Backend to Railway
 
-### Quick Deploy
-```bash
-# Clone and deploy in one command
-git clone <your-repo-url>
-cd asset-extractor
-./deploy.sh
+### 1.1 Prepare Backend
+Your backend files are ready in `backend/`:
+```
+backend/
+├── main.py              # FastAPI server
+├── requirements.txt     # Dependencies
+├── Procfile            # Railway config
+├── railway.toml        # Deployment settings
+└── runtime.txt         # Python version
 ```
 
-### Manual Docker Steps
+### 1.2 Deploy to Railway
 ```bash
-# 1. Build the image
-docker build -t asset-extractor:latest .
+# Option A: Railway CLI
+npm install -g @railway/cli
+railway login
+railway create asset-extractor-backend
+cd backend
+railway up
 
-# 2. Run the container
-docker run -d \
-  --name asset-extractor \
-  -p 3000:3000 \
-  --restart unless-stopped \
-  asset-extractor:latest
-
-# 3. Check status
-docker ps
-docker logs asset-extractor
+# Option B: Railway Dashboard
+# 1. Go to railway.app/dashboard
+# 2. New Project → Deploy from GitHub
+# 3. Select repository
+# 4. Set Root Directory: backend/
+# 5. Deploy
 ```
 
-### Docker Compose
-```bash
-# Start with compose
-docker-compose up -d
-
-# View logs
-docker-compose logs -f
-
-# Stop services
-docker-compose down
+### 1.3 Get Railway URL
+After deployment, copy your Railway URL:
+```
+https://your-app-name-production.up.railway.app
 ```
 
-## 🔧 Manual Deployment
+## ▲ Step 2: Deploy Frontend to Vercel
 
-### 1. Environment Setup
+### 2.1 Configure Environment
+Create `.env.local` in root:
 ```bash
-# Install Node.js dependencies
-pnpm install
-
-# Install Python dependencies
-pip3 install rembg onnxruntime
-
-# Create temp directory
-mkdir -p temp
+NEXT_PUBLIC_BACKEND_URL=https://your-railway-app.railway.app
 ```
 
-### 2. Build Application
+### 2.2 Deploy to Vercel
 ```bash
-# Production build
-pnpm build
+# Option A: Vercel CLI
+npm install -g vercel
+vercel --prod
 
-# Start production server
-pnpm start
+# Option B: Vercel Dashboard
+# 1. Go to vercel.com/dashboard
+# 2. Import Git Repository
+# 3. Set Environment Variables
+# 4. Deploy
 ```
 
-## ☁️ Cloud Deployment
+### 2.3 Set Environment Variables
+In Vercel Dashboard → Settings → Environment Variables:
+```
+NEXT_PUBLIC_BACKEND_URL = https://your-railway-app.railway.app
+```
 
-### Vercel
+## 🔧 Configuration
+
+### Railway Environment Variables
 ```bash
-# Install Vercel CLI
-npm i -g vercel
+# Optional: Custom settings
+PYTHON_VERSION=3.11
+PORT=8000  # Railway sets this automatically
+```
 
-# Deploy
+### Vercel Environment Variables
+```bash
+# Required: Backend URL
+NEXT_PUBLIC_BACKEND_URL=https://your-railway-url.railway.app
+
+# Optional: Custom domain settings
+VERCEL_URL=your-domain.com
+```
+
+## 🧪 Testing Deployment
+
+### Test Backend (Railway)
+```bash
+# Health check
+curl https://your-railway-url.railway.app/health
+
+# API docs
+open https://your-railway-url.railway.app/docs
+
+# Test endpoint
+curl -X POST -F "image=@test.jpg" https://your-railway-url.railway.app/remove-background
+```
+
+### Test Frontend (Vercel)
+1. Visit your Vercel URL
+2. Upload an image
+3. Create selections
+4. Generate assets
+5. Download transparent PNGs
+
+### Full Integration Test
+1. Upload image on frontend
+2. Verify API calls go to Railway
+3. Check Railway logs for processing
+4. Confirm assets download correctly
+
+## 📊 Monitoring & Logs
+
+### Railway Monitoring
+- **Dashboard**: Real-time metrics
+- **Logs**: `railway logs` or web dashboard
+- **Health**: Automatic health checks at `/health`
+
+### Vercel Monitoring  
+- **Analytics**: Built-in performance metrics
+- **Functions**: API route monitoring (dev only)
+- **Deployments**: Git-based deployment history
+
+## 💰 Cost Estimation
+
+### Railway (Backend)
+- **Hobby Plan**: $5/month + usage
+- **AI Model**: ~2GB RAM usage
+- **Processing**: CPU-intensive during requests
+- **Estimated**: $5-15/month for moderate usage
+
+### Vercel (Frontend)
+- **Hobby Plan**: Free for personal projects
+- **Pro Plan**: $20/month for commercial use
+- **Bandwidth**: Generous limits on free tier
+
+### Total Monthly Cost: **$5-35** depending on usage
+
+## 🚨 Troubleshooting
+
+### Backend Issues
+```bash
+# Check Railway logs
+railway logs
+
+# Test health endpoint
+curl https://your-app.railway.app/health
+
+# Verify environment variables
+railway variables
+```
+
+### Frontend Issues
+```bash
+# Check Vercel deployment logs
+vercel logs
+
+# Verify environment variables
+vercel env ls
+
+# Test local build
+npm run build && npm start
+```
+
+### Integration Issues
+- **CORS Errors**: Update Railway CORS settings in `main.py`
+- **API Timeout**: First request takes 2-3 minutes (model download)
+- **Environment Variables**: Ensure they're set in both services
+
+## 🔄 CI/CD Pipeline
+
+### Automatic Deployments
+- **Railway**: Auto-deploys on git push to main branch
+- **Vercel**: Auto-deploys on git push to main branch
+- **Preview**: Automatic preview deployments for PRs
+
+### Manual Deployments
+```bash
+# Railway
+railway redeploy
+
+# Vercel  
 vercel --prod
 ```
 
-**Note**: Vercel has limitations with Python dependencies. Consider using Docker on cloud providers instead.
+## 🛡️ Security Considerations
 
-### Railway
-1. Connect your GitHub repository
-2. Set build command: `pnpm build`
-3. Set start command: `pnpm start`
-4. Add environment variables if needed
+### Production Security
+- ✅ **CORS**: Configured for your domain only
+- ✅ **Rate Limiting**: 5 requests per minute per IP
+- ✅ **Input Validation**: File size and type checking
+- ✅ **Error Handling**: No sensitive data in error messages
 
-### DigitalOcean App Platform
-```yaml
-# app.yaml
-name: asset-extractor
-services:
-- name: web
-  source_dir: /
-  github:
-    repo: your-username/asset-extractor
-    branch: main
-  run_command: pnpm start
-  build_command: pnpm build
-  environment_slug: node-js
-  instance_count: 1
-  instance_size_slug: basic-xxs
-  http_port: 3000
-```
+### Recommended Additions
+- [ ] **API Authentication**: Add API keys for production
+- [ ] **Domain Whitelist**: Restrict CORS to specific domains
+- [ ] **Request Logging**: Monitor for abuse patterns
+- [ ] **CDN**: Consider CloudFlare for additional protection
 
-## 📊 Production Monitoring
+## 🎉 Going Live Checklist
 
-### Health Checks
-- **Endpoint**: `GET /` (returns 200 if healthy)
-- **Docker**: Built-in healthcheck in docker-compose.yml
-- **Kubernetes**: Add liveness and readiness probes
-
-### Performance Metrics
-The API returns performance headers:
-```
-X-Processing-Time: 2340
-X-Input-Size: 1048576
-X-Output-Size: 892456
-X-RateLimit-Remaining: 4
-X-RateLimit-Reset: 1640995200000
-```
-
-### Error Monitoring
-- Check application logs for error patterns
-- Monitor rate limit headers
-- Watch for Python script failures
-
-## 🔒 Security Considerations
-
-### Rate Limiting
-- **Current**: 5 requests per minute per IP
-- **Customize**: Edit `src/utils/rate-limiter.ts`
-
-### File Security
-- **Max file size**: 10MB
-- **Allowed formats**: JPEG, PNG, WebP, BMP
-- **Temp cleanup**: Automatic after processing
-
-### Headers Applied
-```
-X-Content-Type-Options: nosniff
-X-Frame-Options: DENY
-X-XSS-Protection: 1; mode=block
-Referrer-Policy: strict-origin-when-cross-origin
-Content-Length-Limit: 10485760
-```
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-1. **"Module not found: rembg"**
-   ```bash
-   pip3 install rembg onnxruntime
-   ```
-
-2. **"Python script timeout"**
-   - First run downloads ~176MB model
-   - Increase timeout or pre-download models
-
-3. **"Permission denied on /temp"**
-   ```bash
-   mkdir -p temp
-   chmod 755 temp
-   ```
-
-4. **Docker build fails**
-   - Ensure Docker has enough memory (4GB+)
-   - Clear Docker cache: `docker system prune -a`
-
-### Performance Issues
-- **Slow processing**: AI models need time to download initially
-- **Memory usage**: Each request uses ~500MB during processing
-- **Disk space**: Temporary files are auto-cleaned but monitor `/temp`
-
-### Production Checklist
+- [ ] Railway backend deployed and healthy
+- [ ] Vercel frontend deployed successfully  
 - [ ] Environment variables configured
-- [ ] SSL/TLS certificates installed
-- [ ] Rate limiting configured
-- [ ] Error monitoring setup
-- [ ] Backup strategy for temp files
-- [ ] Log rotation configured
-- [ ] Health checks implemented
-- [ ] Security headers verified
+- [ ] Custom domain configured (optional)
+- [ ] SSL certificates active (automatic)
+- [ ] Monitoring dashboards set up
+- [ ] Test full user flow end-to-end
 
 ## 📞 Support
 
-If you encounter issues:
-1. Check the application logs
-2. Verify all dependencies are installed
-3. Ensure sufficient system resources
-4. Review the security and rate limiting settings
+- **Railway Support**: [railway.app/help](https://railway.app/help)
+- **Vercel Support**: [vercel.com/support](https://vercel.com/support)  
+- **Documentation**: See `RAILWAY_DEPLOYMENT.md` for detailed Railway setup
 
-For optimal performance, deploy on a server with at least 2GB RAM and SSD storage.
+---
+
+**Your modern, scalable Asset Extractor is ready for production! 🚀**
