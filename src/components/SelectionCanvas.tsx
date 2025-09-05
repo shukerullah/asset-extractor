@@ -27,7 +27,8 @@ const SelectionCanvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
     },
     ref
   ) => {
-    const canvasRef = ref || useRef<HTMLCanvasElement>(null);
+    const internalCanvasRef = useRef<HTMLCanvasElement>(null);
+    const canvasRef = (ref as React.RefObject<HTMLCanvasElement>) || internalCanvasRef;
     const imageRef = useRef<HTMLImageElement | null>(null);
 
     // Canvas interaction state

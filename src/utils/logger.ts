@@ -3,24 +3,22 @@
  * Only logs in development environment
  */
 
-type LogLevel = 'info' | 'warn' | 'error';
-
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 export const logger = {
-  info: (message: string, ...args: any[]) => {
+  info: (message: string, ...args: unknown[]) => {
     if (isDevelopment) {
       console.log(`ℹ️  ${message}`, ...args);
     }
   },
   
-  warn: (message: string, ...args: any[]) => {
+  warn: (message: string, ...args: unknown[]) => {
     if (isDevelopment) {
       console.warn(`⚠️  ${message}`, ...args);
     }
   },
   
-  error: (message: string, error?: any, ...args: any[]) => {
+  error: (message: string, error?: unknown, ...args: unknown[]) => {
     if (isDevelopment) {
       console.error(`❌ ${message}`, error, ...args);
     }
@@ -28,13 +26,13 @@ export const logger = {
     // Example: sendToMonitoringService(message, error, ...args);
   },
   
-  success: (message: string, ...args: any[]) => {
+  success: (message: string, ...args: unknown[]) => {
     if (isDevelopment) {
       console.log(`✅ ${message}`, ...args);
     }
   },
   
-  progress: (message: string, ...args: any[]) => {
+  progress: (message: string, ...args: unknown[]) => {
     if (isDevelopment) {
       console.log(`🔄 ${message}`, ...args);
     }
