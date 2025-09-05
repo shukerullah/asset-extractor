@@ -8,7 +8,6 @@ import { DownloadManager } from '@/utils/download';
 import styles from './home.module.css';
 
 // Components
-import ImageUploader from '@/components/ImageUploader';
 import SelectionCanvas from '@/components/SelectionCanvas';
 import AssetGrid from '@/components/AssetGrid';
 import ProgressBar from '@/components/ProgressBar';
@@ -234,37 +233,159 @@ export default function AssetExtractorApp() {
 
   // Assert: Render Application
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <div className={styles.container}>
-          {/* Header */}
-          <div className={styles.header}>
-            <h1>🎮 Game Asset Extractor</h1>
-            <p>Extract transparent PNGs from AI-generated images using advanced background removal technology</p>
+    <div className={styles.container}>
+      {/* Header */}
+      <div className={styles.header}>
+        <div className={styles.headerContent}>
+          <div className={styles.headerText}>
+            <h1>Remove Backgrounds.<br />Extract Assets. Simple.</h1>
+            <p>Upload any image, select objects, and<br />download them as transparent PNGs.</p>
+            <button 
+              className={styles.uploadButton}
+              onClick={() => document.getElementById('fileInput')?.click()}
+              disabled={appState.loading}
+            >
+              Upload Image
+            </button>
           </div>
-
-          <div className={styles.main}>
-            {/* Error Display */}
-            {appState.error && (
-              <div style={{ 
-                marginBottom: '20px', 
-                padding: '15px', 
-                backgroundColor: '#ffebee', 
-                border: '1px solid #f8bbd9', 
-                borderRadius: '10px', 
-                color: '#c62828' 
-              }}>
-                ⚠️ {appState.error}
+          <div className={styles.headerIllustration}>
+            <div className={styles.beforeAfter}>
+              <div className={styles.beforeSection}>
+                <div className={styles.houseIllustration}>
+                  <div className={styles.house}>
+                    <div className={styles.roof}></div>
+                    <div className={styles.walls}></div>
+                    <div className={styles.door}></div>
+                  </div>
+                  <div className={styles.ground}></div>
+                </div>
+                <span className={styles.label}>Before</span>
               </div>
-            )}
-
-            {/* Image Upload Section */}
-            <div className={styles.uploadSection}>
-              <ImageUploader 
-                onImageUpload={handleImageUpload}
-                disabled={appState.loading}
-              />
+              <div className={styles.afterSection}>
+                <div className={styles.houseIllustration}>
+                  <div className={styles.house}>
+                    <div className={styles.roof}></div>
+                    <div className={styles.walls}></div>
+                    <div className={styles.door}></div>
+                  </div>
+                </div>
+                <span className={styles.label}>After</span>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.main}>
+        {/* Error Display */}
+        {appState.error && (
+          <div className={styles.error}>
+            ⚠️ {appState.error}
+          </div>
+        )}
+
+        {/* Hidden File Input */}
+        <input
+          id="fileInput"
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) handleImageUpload(file);
+          }}
+          disabled={appState.loading}
+          style={{ display: 'none' }}
+        />
+
+        {/* How it works */}
+        {!appState.image && (
+          <div className={styles.howItWorks}>
+            <h2>How it works</h2>
+            <div className={styles.steps}>
+              <div className={styles.step}>
+                <div className={styles.stepIcon}>📷</div>
+                <h3>Upload image</h3>
+              </div>
+              <div className={styles.step}>
+                <div className={styles.stepIcon}>👤</div>
+                <h3>Select objects/<br />areas</h3>
+              </div>
+              <div className={styles.step}>
+                <div className={styles.stepIcon}>⬇️</div>
+                <h3>Download assets<br />as PNG</h3>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Features */}
+        {!appState.image && (
+          <div className={styles.features}>
+            <h2>Features</h2>
+            <div className={styles.featureList}>
+              <div className={styles.feature}>
+                <div className={styles.featureIcon}>•</div>
+                <span>Fast &amp; simple</span>
+              </div>
+              <div className={styles.feature}>
+                <div className={styles.featureIcon}>•</div>
+                <span>Transparent PNGs</span>
+              </div>
+              <div className={styles.feature}>
+                <div className={styles.featureIcon}>•</div>
+                <span>Multiple object extraction</span>
+              </div>
+              <div className={styles.feature}>
+                <div className={styles.featureIcon}>•</div>
+                <span>Free to start</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Example Section */}
+        {!appState.image && (
+          <div className={styles.example}>
+            <h2>Example</h2>
+            <div className={styles.exampleContent}>
+              <div className={styles.sourceImage}>
+                <div className={styles.exampleHouse}>
+                  <div className={styles.house}>
+                    <div className={styles.roof}></div>
+                    <div className={styles.walls}></div>
+                    <div className={styles.door}></div>
+                  </div>
+                  <div className={styles.tree}></div>
+                  <div className={styles.tree2}></div>
+                  <div className={styles.ground}></div>
+                </div>
+              </div>
+              <div className={styles.arrow}>→</div>
+              <div className={styles.extractedObjects}>
+                <div className={styles.extractedItem}>
+                  <div className={styles.house}>
+                    <div className={styles.roof}></div>
+                    <div className={styles.walls}></div>
+                    <div className={styles.door}></div>
+                  </div>
+                </div>
+                <div className={styles.extractedItem}>
+                  <div className={styles.tree}></div>
+                </div>
+                <div className={styles.extractedItem}>
+                  <div className={styles.tree2}></div>
+                </div>
+              </div>
+            </div>
+            <button 
+              className={styles.uploadImageBtn}
+              onClick={() => document.getElementById('fileInput')?.click()}
+              disabled={appState.loading}
+            >
+              Upload Image
+            </button>
+          </div>
+        )}
 
             {/* Canvas Selection Section */}
             {appState.image && (
@@ -335,13 +456,7 @@ export default function AssetExtractorApp() {
                 />
               </div>
             )}
-          </div>
         </div>
-      </main>
-      
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <p className="text-gray-500 text-sm">Built with Next.js, TypeScript, and Hugging Face RMBG-1.4</p>
-      </footer>
-    </div>
+      </div>
   );
 }
