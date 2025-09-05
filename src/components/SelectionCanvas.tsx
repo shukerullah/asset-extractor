@@ -121,7 +121,7 @@ export default function SelectionCanvas({
       });
     }
 
-  }, [selections]);
+  }, []);
 
   // Draw canvas content
   const drawCanvas = useCallback(() => {

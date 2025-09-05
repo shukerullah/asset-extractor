@@ -5,6 +5,7 @@ import { ImageProcessor } from "@/services/imageProcessor";
 import type { AppState, Asset, CanvasState, Selection } from "@/types";
 import { DownloadManager } from "@/utils/download";
 import { useCallback, useRef, useState } from "react";
+import Image from "next/image";
 import styles from "./page.module.css";
 
 // Components
@@ -523,9 +524,11 @@ export default function AssetExtractorApp() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img
+              <Image
                 src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png"
                 alt="Buy Me A Coffee"
+                width={200}
+                height={55}
                 className={styles.coffeeButton}
               />
             </a>
