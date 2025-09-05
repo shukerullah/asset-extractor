@@ -338,8 +338,8 @@ export default function AssetExtractorApp() {
                 <Image
                   alt="Upload"
                   src="/assets/upload.png"
-                  width={120}
-                  height={120}
+                  fill
+                  style={{ objectFit: "contain", padding: "16px" }}
                 />
               </div>
               <h3>Upload image</h3>
@@ -349,8 +349,8 @@ export default function AssetExtractorApp() {
                 <Image
                   src="/assets/select.png"
                   alt="Select"
-                  width={120}
-                  height={120}
+                  fill
+                  style={{ objectFit: "contain", padding: "16px" }}
                 />
               </div>
               <h3>
@@ -364,8 +364,8 @@ export default function AssetExtractorApp() {
                 <Image
                   src="/assets/download.png"
                   alt="Download"
-                  width={120}
-                  height={120}
+                  fill
+                  style={{ objectFit: "contain", padding: "16px" }}
                 />
               </div>
               <h3>
@@ -382,19 +382,19 @@ export default function AssetExtractorApp() {
           <h2>Features</h2>
           <div className={styles.featureList}>
             <div className={styles.feature}>
-              <div className={styles.featureIcon}>•</div>
+              <div className={styles.featureIcon}>✓</div>
               <span>Fast &amp; simple</span>
             </div>
             <div className={styles.feature}>
-              <div className={styles.featureIcon}>•</div>
+              <div className={styles.featureIcon}>✓</div>
               <span>Transparent PNGs</span>
             </div>
             <div className={styles.feature}>
-              <div className={styles.featureIcon}>•</div>
+              <div className={styles.featureIcon}>✓</div>
               <span>Multiple object extraction</span>
             </div>
             <div className={styles.feature}>
-              <div className={styles.featureIcon}>•</div>
+              <div className={styles.featureIcon}>✓</div>
               <span>Free to start</span>
             </div>
           </div>
