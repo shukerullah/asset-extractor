@@ -5,7 +5,9 @@ import type { Asset, ApiError } from '@/types';
  * Following AAA Pattern: Arrange, Act, Assert
  */
 export class BackgroundRemovalService {
-  private static readonly API_ENDPOINT = '/api/remove-background';
+  private static readonly API_ENDPOINT = process.env.NODE_ENV === 'production' 
+    ? process.env.NEXT_PUBLIC_BACKEND_URL || 'https://your-railway-app.railway.app'
+    : '/api/remove-background';
 
   /**
    * Remove background from image blob
@@ -16,8 +18,12 @@ export class BackgroundRemovalService {
       const formData = new FormData();
       formData.append('image', blob);
 
-      // Act: Call API
-      const response = await fetch(this.API_ENDPOINT, {
+      // Act: Call API (Railway backend expects /remove-background endpoint)
+      const endpoint = process.env.NODE_ENV === 'production' 
+        ? `${this.API_ENDPOINT}/remove-background`
+        : this.API_ENDPOINT;
+      
+      const response = await fetch(endpoint, {
         method: 'POST',
         body: formData,
       });

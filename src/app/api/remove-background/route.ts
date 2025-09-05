@@ -26,7 +26,8 @@ interface ProcessingStats {
   model: string;
 }
 
-// API Route Handler
+// API Route Handler - For Development Only
+// In production, requests go directly to Railway backend
 export async function POST(request: NextRequest): Promise<NextResponse<ApiError> | NextResponse> {
   const tempPaths = { input: null as string | null, output: null as string | null };
 

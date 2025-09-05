@@ -1,0 +1,16 @@
+# FastAPI and Web Server
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# AI Background Removal
+rembg==2.0.50
+onnxruntime==1.16.0
+
+# Image Processing
+pillow==10.0.1
+
+# File Upload Support
+python-multipart==0.0.6
+
+# Additional Dependencies
+python-dotenv==1.0.0
