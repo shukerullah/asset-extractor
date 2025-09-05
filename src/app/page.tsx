@@ -420,8 +420,8 @@ export default function AssetExtractorApp() {
               <div className={styles.extractedObjects}>
                 <div className={styles.extractedItem}>
                   <Image
-                    src="/assets/mill.png"
-                    alt="Extracted mill"
+                    src="/assets/house.png"
+                    alt="Extracted house"
                     fill
                     style={{ objectFit: "contain" }}
                   />
@@ -430,6 +430,14 @@ export default function AssetExtractorApp() {
                   <Image
                     src="/assets/castle.png"
                     alt="Extracted castle"
+                    fill
+                    style={{ objectFit: "contain" }}
+                  />
+                </div>
+                <div className={styles.extractedItem}>
+                  <Image
+                    src="/assets/mill.png"
+                    alt="Extracted mill"
                     fill
                     style={{ objectFit: "contain" }}
                   />

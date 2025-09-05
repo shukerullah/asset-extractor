@@ -305,32 +305,31 @@
 
 .exampleContent {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 60px;
+  gap: 100px;
   margin: 0;
   width: 100%;
 }
 
 .sourceImage {
-  flex: 0 0 auto;
-  width: 300px;
-  height: 200px;
+  flex: 1;
+  height: 300px;
   border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  border-radius: 12px;
   background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .rightSide {
-  flex: 0 0 auto;
+  flex: 0 0 50%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
+  align-items: flex-end;
+  gap: 30px;
+  max-width: 500px;
 }
 
 .exampleHouse {
@@ -394,24 +393,26 @@
 
 .extractedObjects {
   display: flex;
-  gap: 15px;
-  flex: 0 0 auto;
+  gap: 20px;
+  width: 100%;
+  justify-content: flex-end;
 }
 
 .extractedItem {
-  width: 80px;
-  height: 80px;
+  flex: 1;
+  height: 140px;
   background: white;
   border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 8px;
+  border-radius: 12px;
+  padding: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   background-image: repeating-conic-gradient(#f8f9fa 0% 25%, transparent 0% 50%)
-    50% / 8px 8px;
+    50% / 10px 10px;
   box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .extractedItem .house {
@@ -429,8 +430,9 @@
 }
 
 .uploadSection {
-  text-align: left;
+  text-align: right;
   margin-top: 0;
+  width: 100%;
 }
 
 .uploadImageBtn {
@@ -444,6 +446,7 @@
   cursor: pointer;
   transition: background 0.2s ease;
   margin-bottom: 8px;
+  width: 100%;
 }
 
 .uploadImageBtn:hover {
@@ -455,6 +458,7 @@
   color: #666;
   margin: 0;
   font-weight: 400;
+  text-align: left;
 }
 
 /* Canvas Section (when image is uploaded) */
