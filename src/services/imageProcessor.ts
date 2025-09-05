@@ -1,19 +1,11 @@
 import type { Selection } from '@/types';
 
-/**
- * Image Processing Utilities
- * Following AAA Pattern: Arrange, Act, Assert
- */
 export class ImageProcessor {
-  /**
-   * Crop rectangular selection from image
-   */
   static async cropSelection(
     imageElement: HTMLImageElement,
     selection: Selection,
     canvasSize: { width: number; height: number }
   ): Promise<Blob> {
-    // Arrange: Create canvas and context
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     
@@ -21,27 +13,21 @@ export class ImageProcessor {
       throw new Error('Cannot get 2D context');
     }
 
-    // Act: Set canvas dimensions to match selection
     canvas.width = selection.width;
     canvas.height = selection.height;
 
-    // Calculate scale from canvas to original image
     const scale = imageElement.width / canvasSize.width;
     
-    // Calculate source rectangle coordinates in original image
     const sx = selection.x * scale;
     const sy = selection.y * scale;
     const sw = selection.width * scale;
     const sh = selection.height * scale;
 
-    // Draw the cropped rectangle
     ctx.drawImage(
       imageElement, 
-      sx, sy, sw, sh,              // Source rectangle
-      0, 0, selection.width, selection.height  // Destination rectangle
+      sx, sy, sw, sh,
+      0, 0, selection.width, selection.height
     );
-    
-    // Assert: Return blob
     return new Promise<Blob>((resolve, reject) => {
       canvas.toBlob((blob) => {
         if (blob) {
@@ -53,9 +39,6 @@ export class ImageProcessor {
     });
   }
 
-  /**
-   * Load image file as data URL
-   */
   static async loadImageFile(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -73,9 +56,6 @@ export class ImageProcessor {
     });
   }
 
-  /**
-   * Load image element from URL
-   */
   static async loadImageElement(src: string): Promise<HTMLImageElement> {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -87,9 +67,6 @@ export class ImageProcessor {
     });
   }
 
-  /**
-   * Calculate optimal canvas size
-   */
   static calculateCanvasSize(
     imageWidth: number, 
     imageHeight: number, 

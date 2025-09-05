@@ -15,25 +15,7 @@ import AssetGrid from "@/components/AssetGrid";
 import ProgressBar from "@/components/ProgressBar";
 import SelectionCanvas from "@/components/SelectionCanvas";
 
-/**
- * Asset Extractor - Main Application Component
- * 
- * A comprehensive web application for AI-powered background removal and asset extraction.
- * Features include:
- * - Interactive object selection with drag-and-drop
- * - Real-time canvas manipulation
- * - Batch processing with progress tracking
- * - Responsive design for all devices
- * - Accessibility compliance with WCAG guidelines
- * 
- * @component
- * @example
- * ```tsx
- * <AssetExtractorApp />
- * ```
- */
 export default function AssetExtractorApp() {
-  // Arrange: Application State
   const [appState, setAppState] = useState<AppState>({
     image: null,
     selections: [],
@@ -59,7 +41,6 @@ export default function AssetExtractorApp() {
   const imageRef = useRef<HTMLImageElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  // Act: Event Handlers
   const handleImageUpload = useCallback(async (file: File) => {
     try {
       setAppState((prev) => ({ ...prev, loading: true, error: null }));
@@ -270,7 +251,6 @@ export default function AssetExtractorApp() {
     DownloadManager.downloadAllAssets(appState.assets);
   }, [appState.assets]);
 
-  // Assert: Render Application
   return (
     <div className={styles.container}>
       {/* Hero Section */}

@@ -6,10 +6,6 @@ import { logger } from "@/utils/logger";
 import { forwardRef, useCallback, useEffect, useRef, useState } from "react";
 import styles from "../app/page.module.css";
 
-/**
- * Professional Rectangular Selection Canvas Component
- * Features: Rectangle selection, move, resize, delete (like Photoshop)
- */
 const SelectionCanvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
   (
     {
