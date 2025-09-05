@@ -155,7 +155,7 @@
 
 /* How it works - Exact Match */
 .howItWorks {
-  text-align: center;
+  text-align: left;
   padding: 60px 0;
   border-top: 1px solid #f0f0f0;
 }
@@ -169,15 +169,24 @@
 
 .steps {
   display: flex;
-  justify-content: center;
-  gap: 100px;
-  max-width: 800px;
-  margin: 0 auto;
+  justify-content: space-between;
+  gap: 30px;
+  width: 100%;
+  margin: 0;
 }
 
 .step {
   text-align: center;
-  flex: 1;
+  flex: 0 0 calc((100% - 60px) / 3);
+  aspect-ratio: 1;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .stepIcon {
@@ -185,7 +194,7 @@
   height: 60px;
   background: white;
   border: 2px solid #4285f4;
-  border-radius: 50%;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -212,15 +221,16 @@
   font-weight: 600;
   color: #1a1a1a;
   margin: 0 0 40px 0;
-  text-align: center;
+  text-align: left;
 }
 
 .featureList {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px 40px;
-  max-width: 600px;
-  margin: 0 auto;
+  gap: 16px 60px;
+  width: 100%;
+  max-width: none;
+  margin: 0;
 }
 
 .feature {
@@ -250,7 +260,7 @@
 
 /* Example Section - Exact Match */
 .example {
-  text-align: center;
+  text-align: left;
   padding: 60px 0 80px;
   border-top: 1px solid #f0f0f0;
 }
@@ -264,24 +274,42 @@
 
 .exampleContent {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  margin: 0 0 40px 0;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 60px;
+  margin: 0;
+  width: 100%;
 }
 
 .sourceImage {
+  flex: 0 0 auto;
+  width: 300px;
+  height: 200px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
 }
 
+.rightSide {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
 .exampleHouse {
-  width: 160px;
-  height: 120px;
+  width: 100%;
+  height: 100%;
   position: relative;
   background: white;
   border-radius: 8px;
   padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-sizing: border-box;
 }
 
 .exampleHouse .house {
@@ -334,22 +362,25 @@
 }
 
 .arrow {
-  font-size: 24px;
+  font-size: 30px;
   color: #666;
+  flex: 0 0 auto;
+  margin: 0 10px;
 }
 
 .extractedObjects {
   display: flex;
-  gap: 20px;
+  gap: 15px;
+  flex: 0 0 auto;
 }
 
 .extractedItem {
   width: 80px;
   height: 80px;
   background: white;
+  border: 1px solid #e0e0e0;
   border-radius: 8px;
-  padding: 15px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -357,20 +388,26 @@
   background-image: 
     repeating-conic-gradient(#f8f9fa 0% 25%, transparent 0% 50%) 
     50% / 8px 8px;
+  box-sizing: border-box;
 }
 
 .extractedItem .house {
-  transform: scale(0.6);
+  transform: scale(0.5);
 }
 
 .extractedItem .tree {
   position: static;
-  transform: scale(0.7);
+  transform: scale(0.6);
 }
 
 .extractedItem .tree2 {
   position: static;
-  transform: scale(0.7);
+  transform: scale(0.6);
+}
+
+.uploadSection {
+  text-align: left;
+  margin-top: 0;
 }
 
 .uploadImageBtn {
@@ -378,15 +415,23 @@
   color: white;
   border: none;
   border-radius: 6px;
-  padding: 12px 24px;
-  font-size: 14px;
+  padding: 14px 28px;
+  font-size: 16px;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.2s ease;
+  margin-bottom: 8px;
 }
 
 .uploadImageBtn:hover {
   background: #3367d6;
+}
+
+.uploadSubtext {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  font-weight: 400;
 }
 
 /* Canvas Section (when image is uploaded) */
@@ -609,5 +654,130 @@
   
   .headerText p {
     font-size: 16px;
+  }
+}
+
+/* Footer */
+.footer {
+  background: #f8f9fa;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 80px;
+  padding: 60px 0 20px;
+}
+
+.footerMessage {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 40px;
+  text-align: center;
+}
+
+.footerMessage h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
+}
+
+.footerMessage p {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.footerLinks {
+  max-width: 800px;
+  margin: 30px auto 20px;
+  padding: 0 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.socialLinks p {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
+.socialLinks a {
+  color: #4285f4;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.socialLinks a:hover {
+  color: #3367d6;
+}
+
+.coffeeButton {
+  height: 41px;
+  width: 174px;
+  box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5);
+  border-radius: 4px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.coffeeButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0px 5px 4px 0px rgba(190, 190, 190, 0.6);
+}
+
+.footerBottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 40px 0;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 40px;
+}
+
+.footerBottom p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .footerMessage {
+    padding: 0 20px;
+  }
+  
+  .footerMessage h3 {
+    font-size: 20px;
+  }
+  
+  .footerLinks {
+    padding: 0 20px;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .footerBottom {
+    padding: 20px 20px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .footerMessage h3 {
+    font-size: 18px;
+  }
+  
+  .footerMessage p {
+    font-size: 14px;
+  }
+  
+  .socialLinks p {
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .coffeeButton {
+    height: 35px;
+    width: 148px;
   }
 }

@@ -360,30 +360,27 @@ export default function AssetExtractorApp() {
                   <div className={styles.ground}></div>
                 </div>
               </div>
-              <div className={styles.arrow}>→</div>
-              <div className={styles.extractedObjects}>
-                <div className={styles.extractedItem}>
-                  <div className={styles.house}>
-                    <div className={styles.roof}></div>
-                    <div className={styles.walls}></div>
-                    <div className={styles.door}></div>
+              <div className={styles.rightSide}>
+                <div className={styles.extractedObjects}>
+                  <div className={styles.extractedItem}>
+                    <div className={styles.tree}></div>
+                  </div>
+                  <div className={styles.extractedItem}>
+                    <div className={styles.tree2}></div>
                   </div>
                 </div>
-                <div className={styles.extractedItem}>
-                  <div className={styles.tree}></div>
-                </div>
-                <div className={styles.extractedItem}>
-                  <div className={styles.tree2}></div>
+                <div className={styles.uploadSection}>
+                  <button 
+                    className={styles.uploadImageBtn}
+                    onClick={() => document.getElementById('fileInput')?.click()}
+                    disabled={appState.loading}
+                  >
+                    Upload image
+                  </button>
+                  <p className={styles.uploadSubtext}>Start now — no signup required</p>
                 </div>
               </div>
             </div>
-            <button 
-              className={styles.uploadImageBtn}
-              onClick={() => document.getElementById('fileInput')?.click()}
-              disabled={appState.loading}
-            >
-              Upload Image
-            </button>
           </div>
         )}
 
@@ -456,7 +453,35 @@ export default function AssetExtractorApp() {
                 />
               </div>
             )}
-        </div>
+     
       </div>
+      
+      {/* Footer */}
+      <footer className={styles.footer}>
+        <div className={styles.footerMessage}>
+          <h3>Remove backgrounds from any image in seconds</h3>
+          <p>Fast, reliable, and completely free. Extract objects, remove backgrounds, and download transparent PNGs with just a few clicks.</p>
+        </div>
+        
+        <div className={styles.footerLinks}>
+          <div className={styles.socialLinks}>
+            <p>Follow me on Twitter: <a href="https://twitter.com/shukerullah" target="_blank" rel="noopener noreferrer">@shukerullah</a></p>
+          </div>
+          <div className={styles.coffeeLink}>
+            <a href="https://www.buymeacoffee.com/shukerullah" target="_blank" rel="noopener noreferrer">
+              <img 
+                src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" 
+                alt="Buy Me A Coffee" 
+                className={styles.coffeeButton}
+              />
+            </a>
+          </div>
+        </div>
+        
+        <div className={styles.footerBottom}>
+          <p>&copy; 2024 Asset Extractor. Made with ❤️ for creators worldwide.</p>
+        </div>
+      </footer>
+    </div>
   );
 }
