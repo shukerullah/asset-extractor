@@ -271,7 +271,7 @@ const SelectionCanvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
       if (currentSelection) {
         drawSelection(ctx, currentSelection, false, true);
       }
-    }, [selections, selectedSelectionId, currentSelection, drawSelection]);
+    }, [selections, selectedSelectionId, currentSelection, drawSelection, canvasRef]);
 
     // Load and setup image
     useEffect(() => {
@@ -307,7 +307,7 @@ const SelectionCanvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
           y: (event.clientY - rect.top) * (canvas.height / rect.height),
         };
       },
-      []
+      [canvasRef]
     );
 
     // Update cursor based on mouse position

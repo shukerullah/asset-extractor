@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Enable standalone output for Docker deployment
-  output: 'standalone',
+  // Remove standalone for Vercel deployment (Vercel handles this)
+  // output: 'standalone', // Only needed for Docker/self-hosting
   
   // Configure external images
   images: {

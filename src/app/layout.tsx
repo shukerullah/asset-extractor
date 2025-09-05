@@ -44,14 +44,15 @@ export const metadata: Metadata = {
     description: 'Fast, free background remover tool. Upload any image, select objects, and download transparent PNG assets instantly.',
     creator: '@shukerullah',
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
   verification: {
     google: 'your-google-verification-code-here',
   },
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 const jsonLd = {
