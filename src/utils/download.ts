@@ -33,13 +33,4 @@ export class DownloadManager {
     });
   }
 
-  /**
-   * Create ZIP and download (future enhancement)
-   */
-  static async downloadAsZip(assets: Asset[], zipName = 'assets.zip'): Promise<void> {
-    // This would require a ZIP library like JSZip
-    // For now, fall back to individual downloads
-    console.log(`ZIP download (${zipName}) not implemented yet, downloading individually...`);
-    this.downloadAllAssets(assets);
-  }
 }

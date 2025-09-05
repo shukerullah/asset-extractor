@@ -5,7 +5,6 @@ export interface Selection {
   y: number;
   width: number;
   height: number;
-  selected?: boolean;
 }
 
 export interface Asset {
@@ -41,11 +40,6 @@ export interface ApiError {
 }
 
 // Component Props Types
-export interface ImageUploaderProps {
-  onImageUpload: (file: File) => void;
-  disabled?: boolean;
-}
-
 export interface SelectionCanvasProps {
   image: string;
   selections: Selection[];

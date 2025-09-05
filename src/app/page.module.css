@@ -361,12 +361,6 @@
   transform: translateX(-50%);
 }
 
-.arrow {
-  font-size: 30px;
-  color: #666;
-  flex: 0 0 auto;
-  margin: 0 10px;
-}
 
 .extractedObjects {
   display: flex;
