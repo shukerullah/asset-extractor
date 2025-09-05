@@ -621,16 +621,22 @@
   }
 
   .demoSourceImage {
+    flex: none !important; /* Don't use flex: 1 on mobile */
     max-width: 100%;
     width: 100%;
     height: 250px;
     min-width: auto; /* Remove min-width on mobile/tablet */
+    display: block !important;
+    visibility: visible !important;
+    order: 1; /* Ensure it comes first */
   }
 
   .demoResults {
+    flex: none !important; /* Don't use flex sizing on mobile */
     align-items: center;
     max-width: 100%;
     width: 100%;
+    order: 2; /* Ensure it comes after source image */
   }
 
   .extractedAssets {
@@ -680,7 +686,14 @@
   }
 
   .demoSourceImage {
+    flex: none !important; /* Don't use flex: 1 on mobile */
     height: 200px;
+    width: 100%;
+    display: block !important;
+    visibility: visible !important;
+    order: 1; /* Ensure it comes first */
+    background: #ffcccc !important; /* Debug: red background to see if element exists */
+    border: 2px solid red !important; /* Debug: red border */
   }
 
   .extractedAssets {
@@ -708,6 +721,13 @@
 
   .comparisonArrow {
     transform: rotate(90deg);
+  }
+
+  .demoResults {
+    flex: none !important;
+    order: 2;
+    width: 100%;
+    max-width: 100%;
   }
 
   .callToActionSection {
