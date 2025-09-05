@@ -142,7 +142,7 @@ async function removeBackgroundLocal(
   const tempDir = join(process.cwd(), 'temp');
   const inputPath = join(tempDir, `input_${tempId}.png`);
   const outputPath = join(tempDir, `output_${tempId}.png`);
-  const scriptPath = join(process.cwd(), 'scripts', 'remove_background.py');
+  const scriptPath = join(process.cwd(), 'backend', 'remove_background.py');
 
   // Store paths for cleanup
   tempPaths.input = inputPath;

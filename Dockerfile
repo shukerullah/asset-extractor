@@ -34,7 +34,7 @@ RUN pip3 install --no-cache-dir rembg onnxruntime
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/scripts ./scripts
+COPY --from=builder /app/backend ./backend
 
 # Create temp directory with proper permissions
 RUN mkdir -p /app/temp && chown nextjs:nodejs /app/temp

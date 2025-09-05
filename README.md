@@ -135,7 +135,7 @@ src/
 ├── utils/                           # Helper functions
 └── middleware.ts                    # Security & rate limiting
 
-scripts/
+backend/
 └── remove_background.py            # Python AI processing script
 ```
 
