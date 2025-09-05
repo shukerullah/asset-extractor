@@ -285,23 +285,27 @@ export default function AssetExtractorApp() {
           <div className={styles.headerIllustration}>
             <div className={styles.beforeAfter}>
               <div className={styles.beforeSection}>
-                <div className={styles.houseIllustration}>
-                  <div className={styles.house}>
-                    <div className={styles.roof}></div>
-                    <div className={styles.walls}></div>
-                    <div className={styles.door}></div>
-                  </div>
-                  <div className={styles.ground}></div>
+                <div className={styles.villageImage}>
+                  <Image
+                    src="/assets/village_with-background.png"
+                    alt="Village with background"
+                    fill
+                    style={{ objectFit: "cover" }}
+                  />
                 </div>
                 <span className={styles.label}>Before</span>
               </div>
+              <div className={styles.arrowContainer}>
+                <div className={styles.arrow}>→</div>
+              </div>
               <div className={styles.afterSection}>
-                <div className={styles.houseIllustration}>
-                  <div className={styles.house}>
-                    <div className={styles.roof}></div>
-                    <div className={styles.walls}></div>
-                    <div className={styles.door}></div>
-                  </div>
+                <div className={styles.villageImage}>
+                  <Image
+                    src="/assets/village_without-background.png"
+                    alt="Village without background"
+                    fill
+                    style={{ objectFit: "cover" }}
+                  />
                 </div>
                 <span className={styles.label}>After</span>
               </div>
