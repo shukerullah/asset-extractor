@@ -399,6 +399,14 @@ export default function AssetExtractorApp() {
             </div>
             <div className={styles.featureItem}>
               <div className={styles.featureIcon}>✓</div>
+              <span>Quality results</span>
+            </div>
+            <div className={styles.featureItem}>
+              <div className={styles.featureIcon}>✓</div>
+              <span>No signup required</span>
+            </div>
+            <div className={styles.featureItem}>
+              <div className={styles.featureIcon}>✓</div>
               <span>Free to start</span>
             </div>
           </div>

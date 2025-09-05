@@ -194,8 +194,8 @@
 
 .featureGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px 60px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px 40px;
   width: 100%;
   margin: 0;
 }
@@ -578,6 +578,11 @@
 
 /* Tablet Styles (768px - 1024px) */
 @media (max-width: 1024px) {
+  .featureGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 30px;
+  }
+
   .demoContainer {
     gap: 60px;
   }
@@ -692,8 +697,6 @@
     display: block !important;
     visibility: visible !important;
     order: 1; /* Ensure it comes first */
-    background: #ffcccc !important; /* Debug: red background to see if element exists */
-    border: 2px solid red !important; /* Debug: red border */
   }
 
   .extractedAssets {
