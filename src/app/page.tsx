@@ -7,6 +7,7 @@ import { BackgroundRemovalService } from "@/services/api";
 import { ImageProcessor } from "@/services/imageProcessor";
 import type { AppState, Asset, CanvasState, Selection } from "@/types";
 import { DownloadManager } from "@/utils/download";
+import { logger } from "@/utils/logger";
 import styles from "./page.module.css";
 
 // Components
@@ -16,8 +17,20 @@ import SelectionCanvas from "@/components/SelectionCanvas";
 
 /**
  * Asset Extractor - Main Application Component
- * Following AAA Pattern: Arrange, Act, Assert
- * Clean Single Page Application with proper separation of concerns
+ * 
+ * A comprehensive web application for AI-powered background removal and asset extraction.
+ * Features include:
+ * - Interactive object selection with drag-and-drop
+ * - Real-time canvas manipulation
+ * - Batch processing with progress tracking
+ * - Responsive design for all devices
+ * - Accessibility compliance with WCAG guidelines
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <AssetExtractorApp />
+ * ```
  */
 export default function AssetExtractorApp() {
   // Arrange: Application State
@@ -80,7 +93,7 @@ export default function AssetExtractorApp() {
         error: "Failed to load image",
         loading: false,
       }));
-      console.error("Image upload error:", error);
+      logger.error("Image upload failed:", error);
     }
   }, []);
 
@@ -245,7 +258,7 @@ export default function AssetExtractorApp() {
         loading: false,
         progress: 0,
       }));
-      console.error("Asset generation error:", error);
+      logger.error("Asset generation failed:", error);
     }
   }, [appState.selections]);
 
@@ -260,8 +273,8 @@ export default function AssetExtractorApp() {
   // Assert: Render Application
   return (
     <div className={styles.container}>
-      {/* Header */}
-      <div className={styles.header}>
+      {/* Hero Section */}
+      <header className={styles.header} role="banner">
         <div className={styles.heroContainer}>
           <div className={styles.heroContent}>
             <h1>
@@ -278,9 +291,13 @@ export default function AssetExtractorApp() {
               className={styles.primaryButton}
               onClick={() => document.getElementById("fileInput")?.click()}
               disabled={appState.loading}
+              aria-describedby="upload-description"
             >
               Upload Image
             </button>
+            <span id="upload-description" className="sr-only">
+              Upload an image to start extracting objects and removing backgrounds
+            </span>
           </div>
           <div className={styles.heroVisual}>
             <div className={styles.comparisonContainer}>
@@ -312,9 +329,9 @@ export default function AssetExtractorApp() {
             </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      <div className={styles.main}>
+      <main className={styles.main} role="main">
         {/* Error Display */}
         {appState.error && (
           <div className={styles.errorMessage}>⚠️ {appState.error}</div>
@@ -331,16 +348,17 @@ export default function AssetExtractorApp() {
           }}
           disabled={appState.loading}
           style={{ display: "none" }}
+          aria-label="Upload image file for background removal"
         />
 
         {/* How it works */}
-        <div className={styles.processSection}>
-          <h2 className={styles.sectionTitle}>How it works</h2>
+        <section className={styles.processSection} aria-labelledby="how-it-works">
+          <h2 id="how-it-works" className={styles.sectionTitle}>How it works</h2>
           <div className={styles.processSteps}>
             <div className={styles.processStep}>
               <div className={styles.stepIcon}>
                 <Image
-                  alt="Upload"
+                  alt="Upload icon showing document with arrow pointing up"
                   src="/assets/upload.png"
                   fill
                   style={{ objectFit: "contain", padding: "16px" }}
@@ -352,7 +370,7 @@ export default function AssetExtractorApp() {
               <div className={styles.stepIcon}>
                 <Image
                   src="/assets/select.png"
-                  alt="Select"
+                  alt="Selection tool icon showing cursor with dotted rectangle"
                   fill
                   style={{ objectFit: "contain", padding: "16px" }}
                 />
@@ -367,7 +385,7 @@ export default function AssetExtractorApp() {
               <div className={styles.stepIcon}>
                 <Image
                   src="/assets/download.png"
-                  alt="Download"
+                  alt="Download icon showing arrow pointing down to folder"
                   fill
                   style={{ objectFit: "contain", padding: "16px" }}
                 />
@@ -379,11 +397,11 @@ export default function AssetExtractorApp() {
               </h3>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Features */}
-        <div className={styles.featuresSection}>
-          <h2 className={styles.sectionTitle}>Features</h2>
+        <section className={styles.featuresSection} aria-labelledby="features">
+          <h2 id="features" className={styles.sectionTitle}>Features</h2>
           <div className={styles.featureGrid}>
             <div className={styles.featureItem}>
               <div className={styles.featureIcon}>✓</div>
@@ -410,11 +428,11 @@ export default function AssetExtractorApp() {
               <span>Free to start</span>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Example Section */}
-        <div className={styles.demoSection}>
-          <h2 className={styles.sectionTitle}>Example</h2>
+        <section className={styles.demoSection} aria-labelledby="example">
+          <h2 id="example" className={styles.sectionTitle}>Example</h2>
           <div className={styles.demoContainer}>
             <div className={styles.demoSourceImage}>
               <Image
@@ -465,11 +483,12 @@ export default function AssetExtractorApp() {
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Canvas Selection Section */}
         {appState.image && (
-          <div className={styles.workspaceSection}>
+          <section className={styles.workspaceSection} aria-labelledby="workspace">
+            <h3 id="workspace" className="sr-only">Image Selection Workspace</h3>
             <div className={styles.instructionsPanel}>
               <h4>📝 Instructions:</h4>
               <p>
@@ -526,32 +545,34 @@ export default function AssetExtractorApp() {
                 {appState.loading ? "Processing..." : "Generate Assets"}
               </button>
             </div>
-          </div>
+          </section>
         )}
 
         {/* Progress Section */}
         {appState.loading && (
-          <div className={styles.progressSection}>
+          <section className={styles.progressSection} aria-labelledby="progress">
+            <h3 id="progress" className="sr-only">Processing Progress</h3>
             <ProgressBar
               progress={appState.progress}
               message={`Processing asset ${Math.ceil(
                 (appState.progress / 100) * appState.selections.length
               )} of ${appState.selections.length}`}
             />
-          </div>
+          </section>
         )}
 
         {/* Asset Grid Section */}
         {appState.assets.length > 0 && (
-          <div className={styles.resultsSection}>
+          <section className={styles.resultsSection} aria-labelledby="results">
+            <h3 id="results" className="sr-only">Generated Assets</h3>
             <AssetGrid
               assets={appState.assets}
               onDownload={handleDownloadAsset}
               onDownloadAll={handleDownloadAll}
             />
-          </div>
+          </section>
         )}
-      </div>
+      </main>
 
       {/* Footer */}
       <footer className={styles.footer}>
@@ -594,9 +615,7 @@ export default function AssetExtractorApp() {
         </div>
 
         <div className={styles.footerBottom}>
-          <p>
-            &copy; 2025 Asset Extractor. Made with ❤️ for creators worldwide.
-          </p>
+          <p>Made with ❤️ for creators worldwide.</p>
         </div>
       </footer>
     </div>

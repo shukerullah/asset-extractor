@@ -13,8 +13,72 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Game Asset Extractor",
-  description: "Extract transparent PNGs from AI-generated images using advanced background removal",
+  title: "Asset Extractor - Remove Backgrounds & Extract Assets Online",
+  description: "Fast, free background remover tool. Upload any image, select objects, and download transparent PNG assets instantly. No signup required - powered by AI.",
+  keywords: "background remover, transparent PNG, asset extractor, remove background, AI background removal, extract objects, free tool",
+  authors: [{ name: "Asset Extractor Team" }],
+  creator: "Asset Extractor",
+  publisher: "Asset Extractor",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://asset-extractor.com',
+    title: 'Asset Extractor - Remove Backgrounds & Extract Assets Online',
+    description: 'Fast, free background remover tool. Upload any image, select objects, and download transparent PNG assets instantly.',
+    siteName: 'Asset Extractor',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Asset Extractor - Remove Backgrounds & Extract Assets Online',
+    description: 'Fast, free background remover tool. Upload any image, select objects, and download transparent PNG assets instantly.',
+    creator: '@shukerullah',
+  },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
+  verification: {
+    google: 'your-google-verification-code-here',
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Asset Extractor",
+  "url": "https://asset-extractor.com",
+  "description": "Fast, free background remover tool. Upload any image, select objects, and download transparent PNG assets instantly.",
+  "applicationCategory": "GraphicsApplication",
+  "operatingSystem": "Web Browser",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "Asset Extractor Team"
+  },
+  "featureList": [
+    "Background removal",
+    "Object extraction", 
+    "Transparent PNG generation",
+    "Batch processing",
+    "AI-powered processing"
+  ]
 };
 
 export default function RootLayout({
@@ -24,6 +88,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
