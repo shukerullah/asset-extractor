@@ -46,7 +46,7 @@
 }
 
 .uploadButton {
-  background: #4285f4;
+  background: var(--primary-color);
   color: white;
   border: none;
   border-radius: 6px;
@@ -59,7 +59,7 @@
 }
 
 .uploadButton:hover:not(:disabled) {
-  background: #3367d6;
+  background: var(--primary-color-hover);
 }
 
 .uploadButton:disabled {
@@ -179,7 +179,7 @@
 
 .step {
   text-align: center;
-  flex: 0 0 calc((100% - 60px) / 3);
+  flex: 0 0 calc((100% - 120px) / 3);
   aspect-ratio: 1;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
@@ -201,7 +201,7 @@
   justify-content: center;
   font-size: 24px;
   margin: 0 auto 16px;
-  color: #4285f4;
+  color: var(--primary-color);
 }
 
 .step h3 {
@@ -243,7 +243,7 @@
 .featureIcon {
   width: 16px;
   height: 16px;
-  background: #4285f4;
+  background: var(--primary-color);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -404,7 +404,7 @@
 }
 
 .uploadImageBtn {
-  background: #4285f4;
+  background: var(--primary-color);
   color: white;
   border: none;
   border-radius: 6px;
@@ -417,7 +417,7 @@
 }
 
 .uploadImageBtn:hover {
-  background: #3367d6;
+  background: var(--primary-color-hover);
 }
 
 .uploadSubtext {
@@ -463,7 +463,7 @@
 }
 
 .instructions p strong {
-  color: #4285f4;
+  color: var(--primary-color);
   font-weight: 500;
 }
 
@@ -487,7 +487,7 @@
 }
 
 .btnPrimary {
-  background: #4285f4;
+  background: var(--primary-color);
   color: white;
   border: none;
   border-radius: 6px;
@@ -499,7 +499,7 @@
 }
 
 .btnPrimary:hover:not(:disabled) {
-  background: #3367d6;
+  background: var(--primary-color-hover);
 }
 
 .btnPrimary:disabled {
@@ -548,7 +548,7 @@
 
 .progressFill {
   height: 100%;
-  background: #4285f4;
+  background: var(--primary-color);
   transition: width 0.3s ease;
 }
 
@@ -712,14 +712,14 @@
 }
 
 .socialLinks a {
-  color: #4285f4;
+  color: var(--primary-color);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease;
 }
 
 .socialLinks a:hover {
-  color: #3367d6;
+  color: var(--primary-color-hover);
 }
 
 .coffeeButton {

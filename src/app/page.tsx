@@ -44,6 +44,7 @@ export default function AssetExtractorApp() {
   const selectionCounter = useRef(1);
 
   const imageRef = useRef<HTMLImageElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   // Act: Event Handlers
   const handleImageUpload = useCallback(async (file: File) => {
@@ -65,6 +66,14 @@ export default function AssetExtractorApp() {
         loading: false,
         progress: 0,
       }));
+
+      // Focus on canvas after successful upload
+      setTimeout(() => {
+        canvasRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }, 100);
     } catch (error) {
       setAppState((prev) => ({
         ...prev,
@@ -458,6 +467,7 @@ export default function AssetExtractorApp() {
             </div>
 
             <SelectionCanvas
+              ref={canvasRef}
               image={appState.image}
               selections={appState.selections}
               currentSelection={canvasState.currentSelection}
