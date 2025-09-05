@@ -1,11 +1,12 @@
 "use client";
 
+import Image from "next/image";
+import { useCallback, useRef, useState } from "react";
+
 import { BackgroundRemovalService } from "@/services/api";
 import { ImageProcessor } from "@/services/imageProcessor";
 import type { AppState, Asset, CanvasState, Selection } from "@/types";
 import { DownloadManager } from "@/utils/download";
-import { useCallback, useRef, useState } from "react";
-import Image from "next/image";
 import styles from "./page.module.css";
 
 // Components
@@ -324,11 +325,25 @@ export default function AssetExtractorApp() {
           <h2>How it works</h2>
           <div className={styles.steps}>
             <div className={styles.step}>
-              <div className={styles.stepIcon}>📷</div>
+              <div className={styles.stepIcon}>
+                <Image
+                  alt="Upload"
+                  src="/assets/upload.png"
+                  width={120}
+                  height={120}
+                />
+              </div>
               <h3>Upload image</h3>
             </div>
             <div className={styles.step}>
-              <div className={styles.stepIcon}>👤</div>
+              <div className={styles.stepIcon}>
+                <Image
+                  src="/assets/select.png"
+                  alt="Select"
+                  width={120}
+                  height={120}
+                />
+              </div>
               <h3>
                 Select objects/
                 <br />
@@ -336,7 +351,14 @@ export default function AssetExtractorApp() {
               </h3>
             </div>
             <div className={styles.step}>
-              <div className={styles.stepIcon}>⬇️</div>
+              <div className={styles.stepIcon}>
+                <Image
+                  src="/assets/download.png"
+                  alt="Download"
+                  width={120}
+                  height={120}
+                />
+              </div>
               <h3>
                 Download assets
                 <br />

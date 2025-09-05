@@ -4,6 +4,17 @@ const nextConfig: NextConfig = {
   // Enable standalone output for Docker deployment
   output: 'standalone',
   
+  // Configure external images
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.buymeacoffee.com',
+        pathname: '/assets/img/**',
+      }
+    ]
+  },
+  
   // Optimize for production
   experimental: {
     optimizePackageImports: ['@/utils/rate-limiter', '@/utils/error-monitor']

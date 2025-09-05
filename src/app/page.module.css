@@ -3,7 +3,8 @@
 .container {
   min-height: 100vh;
   background: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+    sans-serif;
   padding: 0;
   margin: 0;
 }
@@ -77,7 +78,8 @@
   gap: 40px;
 }
 
-.beforeSection, .afterSection {
+.beforeSection,
+.afterSection {
   text-align: center;
 }
 
@@ -102,7 +104,7 @@
   height: 0;
   border-left: 35px solid transparent;
   border-right: 35px solid transparent;
-  border-bottom: 25px solid #8B4513;
+  border-bottom: 25px solid #8b4513;
   position: absolute;
   top: -15px;
   left: -5px;
@@ -111,7 +113,7 @@
 .walls {
   width: 60px;
   height: 40px;
-  background: #DEB887;
+  background: #deb887;
   position: absolute;
   top: 10px;
 }
@@ -132,7 +134,7 @@
   left: 0;
   right: 0;
   height: 20px;
-  background: #90EE90;
+  background: #90ee90;
   border-radius: 20px 20px 0 0;
 }
 
@@ -190,10 +192,9 @@
 }
 
 .stepIcon {
-  width: 60px;
-  height: 60px;
+  width: 120px;
+  height: 120px;
   background: white;
-  border: 2px solid #4285f4;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -322,7 +323,7 @@
 .tree {
   width: 20px;
   height: 30px;
-  background: #228B22;
+  background: #228b22;
   border-radius: 50% 50% 0 0;
   position: absolute;
   bottom: 20px;
@@ -330,10 +331,10 @@
 }
 
 .tree::after {
-  content: '';
+  content: "";
   width: 4px;
   height: 10px;
-  background: #8B4513;
+  background: #8b4513;
   position: absolute;
   bottom: -10px;
   left: 50%;
@@ -343,7 +344,7 @@
 .tree2 {
   width: 18px;
   height: 28px;
-  background: #32CD32;
+  background: #32cd32;
   border-radius: 50% 50% 0 0;
   position: absolute;
   bottom: 20px;
@@ -351,16 +352,15 @@
 }
 
 .tree2::after {
-  content: '';
+  content: "";
   width: 4px;
   height: 10px;
-  background: #8B4513;
+  background: #8b4513;
   position: absolute;
   bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
 }
-
 
 .extractedObjects {
   display: flex;
@@ -379,8 +379,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  background-image: 
-    repeating-conic-gradient(#f8f9fa 0% 25%, transparent 0% 50%) 
+  background-image: repeating-conic-gradient(#f8f9fa 0% 25%, transparent 0% 50%)
     50% / 8px 8px;
   box-sizing: border-box;
 }
@@ -475,7 +474,7 @@
   border: 1px solid #dadce0;
   border-radius: 8px;
   background: white;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin: 20px 0;
 }
 
@@ -574,7 +573,7 @@
 }
 
 .assetItem:hover {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .assetItem img {
@@ -583,9 +582,8 @@
   object-fit: contain;
   border-radius: 4px;
   margin-bottom: 12px;
-  background: 
-    repeating-conic-gradient(#f8f9fa 0% 25%, transparent 0% 50%) 
-    50% / 10px 10px;
+  background: repeating-conic-gradient(#f8f9fa 0% 25%, transparent 0% 50%) 50% /
+    10px 10px;
 }
 
 .downloadBtn {
@@ -624,26 +622,26 @@
     gap: 40px;
     text-align: center;
   }
-  
+
   .headerText h1 {
     font-size: 36px;
   }
-  
+
   .steps {
     flex-direction: column;
     gap: 40px;
   }
-  
+
   .featureList {
     grid-template-columns: 1fr;
     gap: 16px;
   }
-  
+
   .exampleContent {
     flex-direction: column;
     gap: 30px;
   }
-  
+
   .extractedObjects {
     justify-content: center;
   }
@@ -653,15 +651,15 @@
   .header {
     padding: 40px 20px 60px;
   }
-  
+
   .main {
     padding: 0 20px;
   }
-  
+
   .headerText h1 {
     font-size: 28px;
   }
-  
+
   .headerText p {
     font-size: 16px;
   }
@@ -756,17 +754,17 @@
   .footerMessage {
     padding: 0 20px;
   }
-  
+
   .footerMessage h3 {
     font-size: 20px;
   }
-  
+
   .footerLinks {
     padding: 0 20px;
     flex-direction: column;
     gap: 20px;
   }
-  
+
   .footerBottom {
     padding: 20px 20px 0;
   }
@@ -776,16 +774,16 @@
   .footerMessage h3 {
     font-size: 18px;
   }
-  
+
   .footerMessage p {
     font-size: 14px;
   }
-  
+
   .socialLinks p {
     font-size: 14px;
     text-align: center;
   }
-  
+
   .coffeeButton {
     height: 35px;
     width: 148px;
