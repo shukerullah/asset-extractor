@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from 'react';
 import type { ImageUploaderProps } from '@/types';
-import styles from '../app/home.module.css';
+import styles from '../app/page.module.css';
 
 /**
  * Image Uploader Component

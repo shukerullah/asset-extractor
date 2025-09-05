@@ -1,7 +1,7 @@
 'use client';
 
 import type { AssetGridProps } from '@/types';
-import styles from '../app/home.module.css';
+import styles from '../app/page.module.css';
 
 /**
  * Asset Grid Component

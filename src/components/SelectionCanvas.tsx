@@ -3,7 +3,7 @@
 import { useRef, useEffect, useCallback, useState } from 'react';
 import type { SelectionCanvasProps, Selection } from '@/types';
 import { ImageProcessor } from '@/services/imageProcessor';
-import styles from '../app/home.module.css';
+import styles from '../app/page.module.css';
 
 /**
  * Professional Rectangular Selection Canvas Component

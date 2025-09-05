@@ -5,7 +5,7 @@ import type { AppState, CanvasState, Selection, Asset } from '@/types';
 import { ImageProcessor } from '@/services/imageProcessor';
 import { BackgroundRemovalService } from '@/services/api';
 import { DownloadManager } from '@/utils/download';
-import styles from './home.module.css';
+import styles from './page.module.css';
 
 // Components
 import SelectionCanvas from '@/components/SelectionCanvas';
