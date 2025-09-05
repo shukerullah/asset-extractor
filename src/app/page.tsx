@@ -262,8 +262,8 @@ export default function AssetExtractorApp() {
     <div className={styles.container}>
       {/* Header */}
       <div className={styles.header}>
-        <div className={styles.headerContent}>
-          <div className={styles.headerText}>
+        <div className={styles.heroContainer}>
+          <div className={styles.heroContent}>
             <h1>
               Remove Backgrounds.
               <br />
@@ -275,17 +275,17 @@ export default function AssetExtractorApp() {
               download them as transparent PNGs.
             </p>
             <button
-              className={styles.uploadButton}
+              className={styles.primaryButton}
               onClick={() => document.getElementById("fileInput")?.click()}
               disabled={appState.loading}
             >
               Upload Image
             </button>
           </div>
-          <div className={styles.headerIllustration}>
-            <div className={styles.beforeAfter}>
-              <div className={styles.beforeSection}>
-                <div className={styles.villageImage}>
+          <div className={styles.heroVisual}>
+            <div className={styles.comparisonContainer}>
+              <div className={styles.comparisonItem}>
+                <div className={styles.comparisonImage}>
                   <Image
                     src="/assets/village_with-background.png"
                     alt="Village with background"
@@ -293,13 +293,13 @@ export default function AssetExtractorApp() {
                     style={{ objectFit: "cover" }}
                   />
                 </div>
-                <span className={styles.label}>Before</span>
+                <span className={styles.comparisonLabel}>Before</span>
               </div>
-              <div className={styles.arrowContainer}>
-                <div className={styles.arrow}>→</div>
+              <div className={styles.comparisonArrow}>
+                <div className={styles.arrowIcon}>→</div>
               </div>
-              <div className={styles.afterSection}>
-                <div className={styles.villageImage}>
+              <div className={styles.comparisonItem}>
+                <div className={styles.comparisonImage}>
                   <Image
                     src="/assets/village_without-background.png"
                     alt="Village without background"
@@ -307,7 +307,7 @@ export default function AssetExtractorApp() {
                     style={{ objectFit: "cover" }}
                   />
                 </div>
-                <span className={styles.label}>After</span>
+                <span className={styles.comparisonLabel}>After</span>
               </div>
             </div>
           </div>
@@ -317,7 +317,7 @@ export default function AssetExtractorApp() {
       <div className={styles.main}>
         {/* Error Display */}
         {appState.error && (
-          <div className={styles.error}>⚠️ {appState.error}</div>
+          <div className={styles.errorMessage}>⚠️ {appState.error}</div>
         )}
 
         {/* Hidden File Input */}
@@ -334,10 +334,10 @@ export default function AssetExtractorApp() {
         />
 
         {/* How it works */}
-        <div className={styles.howItWorks}>
-          <h2>How it works</h2>
-          <div className={styles.steps}>
-            <div className={styles.step}>
+        <div className={styles.processSection}>
+          <h2 className={styles.sectionTitle}>How it works</h2>
+          <div className={styles.processSteps}>
+            <div className={styles.processStep}>
               <div className={styles.stepIcon}>
                 <Image
                   alt="Upload"
@@ -348,7 +348,7 @@ export default function AssetExtractorApp() {
               </div>
               <h3>Upload image</h3>
             </div>
-            <div className={styles.step}>
+            <div className={styles.processStep}>
               <div className={styles.stepIcon}>
                 <Image
                   src="/assets/select.png"
@@ -363,7 +363,7 @@ export default function AssetExtractorApp() {
                 areas
               </h3>
             </div>
-            <div className={styles.step}>
+            <div className={styles.processStep}>
               <div className={styles.stepIcon}>
                 <Image
                   src="/assets/download.png"
@@ -382,22 +382,22 @@ export default function AssetExtractorApp() {
         </div>
 
         {/* Features */}
-        <div className={styles.features}>
-          <h2>Features</h2>
-          <div className={styles.featureList}>
-            <div className={styles.feature}>
+        <div className={styles.featuresSection}>
+          <h2 className={styles.sectionTitle}>Features</h2>
+          <div className={styles.featureGrid}>
+            <div className={styles.featureItem}>
               <div className={styles.featureIcon}>✓</div>
               <span>Fast &amp; simple</span>
             </div>
-            <div className={styles.feature}>
+            <div className={styles.featureItem}>
               <div className={styles.featureIcon}>✓</div>
               <span>Transparent PNGs</span>
             </div>
-            <div className={styles.feature}>
+            <div className={styles.featureItem}>
               <div className={styles.featureIcon}>✓</div>
               <span>Multiple object extraction</span>
             </div>
-            <div className={styles.feature}>
+            <div className={styles.featureItem}>
               <div className={styles.featureIcon}>✓</div>
               <span>Free to start</span>
             </div>
@@ -405,10 +405,10 @@ export default function AssetExtractorApp() {
         </div>
 
         {/* Example Section */}
-        <div className={styles.example}>
-          <h2>Example</h2>
-          <div className={styles.exampleContent}>
-            <div className={styles.sourceImage}>
+        <div className={styles.demoSection}>
+          <h2 className={styles.sectionTitle}>Example</h2>
+          <div className={styles.demoContainer}>
+            <div className={styles.demoSourceImage}>
               <Image
                 src="/assets/village_with-background.png"
                 alt="Village with background - source image"
@@ -416,9 +416,9 @@ export default function AssetExtractorApp() {
                 style={{ objectFit: "cover" }}
               />
             </div>
-            <div className={styles.rightSide}>
-              <div className={styles.extractedObjects}>
-                <div className={styles.extractedItem}>
+            <div className={styles.demoResults}>
+              <div className={styles.extractedAssets}>
+                <div className={styles.assetPreview}>
                   <Image
                     src="/assets/house.png"
                     alt="Extracted house"
@@ -426,7 +426,7 @@ export default function AssetExtractorApp() {
                     style={{ objectFit: "contain" }}
                   />
                 </div>
-                <div className={styles.extractedItem}>
+                <div className={styles.assetPreview}>
                   <Image
                     src="/assets/castle.png"
                     alt="Extracted castle"
@@ -434,7 +434,7 @@ export default function AssetExtractorApp() {
                     style={{ objectFit: "contain" }}
                   />
                 </div>
-                <div className={styles.extractedItem}>
+                <div className={styles.assetPreview}>
                   <Image
                     src="/assets/mill.png"
                     alt="Extracted mill"
@@ -443,15 +443,15 @@ export default function AssetExtractorApp() {
                   />
                 </div>
               </div>
-              <div className={styles.uploadSection}>
+              <div className={styles.callToActionSection}>
                 <button
-                  className={styles.uploadImageBtn}
+                  className={styles.fullWidthButton}
                   onClick={() => document.getElementById("fileInput")?.click()}
                   disabled={appState.loading}
                 >
                   Upload image
                 </button>
-                <p className={styles.uploadSubtext}>
+                <p className={styles.ctaSubtext}>
                   Start now — no signup required
                 </p>
               </div>
@@ -461,8 +461,8 @@ export default function AssetExtractorApp() {
 
         {/* Canvas Selection Section */}
         {appState.image && (
-          <div className={styles.canvasSection}>
-            <div className={styles.instructions}>
+          <div className={styles.workspaceSection}>
+            <div className={styles.instructionsPanel}>
               <h4>📝 Instructions:</h4>
               <p>
                 • <strong>Create:</strong> Click and drag to create rectangular
@@ -501,11 +501,11 @@ export default function AssetExtractorApp() {
             />
 
             {/* Controls */}
-            <div className={styles.controls}>
+            <div className={styles.controlsGroup}>
               <button
                 onClick={handleClearSelections}
                 disabled={appState.loading || appState.selections.length === 0}
-                className={styles.btnSecondary}
+                className={styles.buttonSecondary}
               >
                 Clear All
               </button>
@@ -513,7 +513,7 @@ export default function AssetExtractorApp() {
               <button
                 onClick={handleGenerateAssets}
                 disabled={appState.loading || appState.selections.length === 0}
-                className={styles.btnPrimary}
+                className={styles.buttonPrimary}
               >
                 {appState.loading ? "Processing..." : "Generate Assets"}
               </button>
@@ -523,7 +523,7 @@ export default function AssetExtractorApp() {
 
         {/* Progress Section */}
         {appState.loading && (
-          <div className={styles.progress}>
+          <div className={styles.progressSection}>
             <ProgressBar
               progress={appState.progress}
               message={`Processing asset ${Math.ceil(
@@ -535,7 +535,7 @@ export default function AssetExtractorApp() {
 
         {/* Asset Grid Section */}
         {appState.assets.length > 0 && (
-          <div className={styles.results}>
+          <div className={styles.resultsSection}>
             <AssetGrid
               assets={appState.assets}
               onDownload={handleDownloadAsset}
@@ -587,7 +587,7 @@ export default function AssetExtractorApp() {
 
         <div className={styles.footerBottom}>
           <p>
-            &copy; 2024 Asset Extractor. Made with ❤️ for creators worldwide.
+            &copy; 2025 Asset Extractor. Made with ❤️ for creators worldwide.
           </p>
         </div>
       </footer>

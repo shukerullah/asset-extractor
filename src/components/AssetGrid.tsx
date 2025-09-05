@@ -15,18 +15,18 @@ export default function AssetGrid({ assets, onDownload, onDownloadAll }: AssetGr
   return (
     <>
       <h3>🎉 Generated Assets ({assets.length})</h3>
-      <button className={styles.btnPrimary} onClick={onDownloadAll}>
+      <button className={styles.buttonPrimary} onClick={onDownloadAll}>
         Download All
       </button>
       
-      <div className={styles.assetGrid}>
+      <div className={styles.resultGrid}>
         {assets.map((asset) => (
-          <div key={asset.id} className={styles.assetItem}>
+          <div key={asset.id} className={styles.resultItem}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={asset.url} alt={asset.name} />
             <p>{asset.name}</p>
             <button 
-              className={styles.downloadBtn}
+              className={styles.downloadButton}
               onClick={() => onDownload(asset)}
             >
               Download
