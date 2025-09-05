@@ -1,4 +1,5 @@
 import type { Asset, ApiError } from '@/types';
+import { logger } from '@/utils/logger';
 
 /**
  * Background Removal API Service
@@ -44,7 +45,7 @@ export class BackgroundRemovalService {
         blob: resultBlob
       };
     } catch (error) {
-      console.error('Background removal failed:', error);
+      logger.error('Background removal failed:', error);
       
       // Fallback: return original image
       const url = URL.createObjectURL(blob);

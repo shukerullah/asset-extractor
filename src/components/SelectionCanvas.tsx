@@ -2,6 +2,7 @@
 
 import { ImageProcessor } from "@/services/imageProcessor";
 import type { Selection, SelectionCanvasProps } from "@/types";
+import { logger } from "@/utils/logger";
 import { forwardRef, useCallback, useEffect, useRef, useState } from "react";
 import styles from "../app/page.module.css";
 
@@ -281,7 +282,7 @@ const SelectionCanvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
           imageRef.current = img;
           drawCanvas();
         } catch (error) {
-          console.error("Failed to load image:", error);
+          logger.error("Failed to load image:", error);
         }
       };
 
