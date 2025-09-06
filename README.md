@@ -1,102 +1,59 @@
-# 🎯 Asset Extractor
+# Asset Extractor
 
-**AI-powered background removal tool. Upload any image, select objects, and download transparent PNGs instantly.**
+**Simple background removal tool. Upload an image, select areas, and download transparent PNGs.**
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.5.2-black)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://typescriptlang.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.104.1-green)](https://fastapi.tiangolo.com/)
-[![AI Powered](https://img.shields.io/badge/AI-rembg-red)](https://github.com/danielgatis/rembg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-## ✨ Features
+## Features
 
-- **Interactive Selection**: Click and drag to select objects from images
-- **AI Background Removal**: Powered by state-of-the-art AI models (u2net, isnet)
-- **Batch Processing**: Process multiple selections simultaneously  
-- **Professional UI**: Clean, responsive design with canvas editing tools
-- **Fast & Secure**: Modern cloud architecture with Railway + Vercel
-- **Open Source**: MIT licensed, ready to fork and deploy
+- Click and drag to select objects from images
+- Background removal using AI models
+- Download selected areas as PNG files
+- Clean, responsive web interface
 
-## 🚀 Quick Deploy
+## Quick Deploy
 
-### Deploy to Vercel + Railway (Recommended)
+### Deploy to Vercel + Railway
 
-1. **Fork this repository**
+1. Fork this repository
 
-2. **Deploy Backend to Railway**
-   ```bash
-   # Railway will auto-detect the backend/ folder
-   # Visit: https://railway.app/new
-   # Import your fork, set root directory to 'backend/'
-   ```
+2. Deploy backend to Railway:
+   - Visit https://railway.app/new
+   - Import your fork
+   - Set root directory to `backend/`
 
-3. **Deploy Frontend to Vercel**  
-   ```bash
-   # Visit: https://vercel.com/new
-   # Import your fork, add environment variable:
-   # NEXT_PUBLIC_BACKEND_URL=https://your-railway-app.railway.app
-   ```
-
-4. **You're live!** 🎉
+3. Deploy frontend to Vercel:
+   - Visit https://vercel.com/new  
+   - Import your fork
+   - Add environment variable: `NEXT_PUBLIC_BACKEND_URL=https://your-app.railway.app`
 
 ### Local Development
 
 ```bash
-# Clone and install
-git clone https://github.com/yourusername/asset-extractor.git
+git clone https://github.com/username/asset-extractor.git
 cd asset-extractor
 npm install
-
-# Start development server
 npm run dev
 ```
 
-## 🏗️ Architecture
+## Architecture
 
-```
-┌─────────────┐    API calls    ┌──────────────┐
-│   Vercel    │ ──────────────→ │   Railway    │
-│  (Frontend) │                 │  (Backend)   │
-│   Next.js   │                 │   FastAPI    │
-└─────────────┘                 └──────────────┘
-```
+- **Frontend**: Next.js 15 + TypeScript
+- **Backend**: FastAPI with rembg (deployed separately)
+- **Deployment**: Vercel + Railway
 
-- **Frontend**: Next.js with TypeScript, Canvas API, responsive design
-- **Backend**: FastAPI with rembg AI models, automatic scaling
-- **Deployment**: Vercel (frontend) + Railway (backend)
-
-## 📖 Documentation
-
-- [**Deployment Guide**](./docs/DEPLOYMENT.md) - Complete deployment instructions
-- [**Railway Setup**](./docs/RAILWAY_DEPLOYMENT.md) - Backend deployment details  
-- [**API Reference**](./docs/API.md) - Backend API documentation
-
-## 🤝 Contributing
-
-We welcome contributions! See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+## Contributing
 
 1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit changes: `git commit -m 'Add amazing feature'`
-4. Push to branch: `git push origin feature/amazing-feature`
+2. Create a feature branch: `git checkout -b feature/new-feature`
+3. Commit changes: `git commit -m 'Add new feature'`
+4. Push to branch: `git push origin feature/new-feature`
 5. Open a Pull Request
 
-## 📄 License
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+## License
 
-## 🛡️ Security
-
-For security concerns, please see [SECURITY.md](./docs/SECURITY.md).
-
-## 🙏 Acknowledgments
-
-- [rembg](https://github.com/danielgatis/rembg) - AI background removal library
-- [Next.js](https://nextjs.org/) - React framework  
-- [FastAPI](https://fastapi.tiangolo.com/) - Modern Python web framework
-- [Railway](https://railway.app/) - Backend hosting
-- [Vercel](https://vercel.com/) - Frontend hosting
-
----
-
-**Made with ❤️ for creators worldwide. Star ⭐ if you found this helpful!**
+MIT License - see [LICENSE](./LICENSE) file.

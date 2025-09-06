@@ -3,7 +3,7 @@ import { logger } from '@/utils/logger';
 
 export class BackgroundRemovalService {
   private static readonly API_ENDPOINT = process.env.NODE_ENV === 'production' 
-    ? process.env.NEXT_PUBLIC_BACKEND_URL || 'https://your-railway-app.railway.app'
+    ? process.env.NEXT_PUBLIC_BACKEND_URL || 'https://example.railway.app'
     : '/api/remove-background';
 
   static async removeBackground(blob: Blob, index: number): Promise<Asset> {

@@ -44,9 +44,6 @@ export const metadata: Metadata = {
     description: 'Fast, free background remover tool. Upload any image, select objects, and download transparent PNG assets instantly.',
     creator: '@shukerullah',
   },
-  verification: {
-    google: 'your-google-verification-code-here',
-  },
 };
 
 export const viewport = {
