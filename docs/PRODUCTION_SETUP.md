@@ -2,16 +2,16 @@
 
 Before deploying to production, update these configuration items:
 
-## Backend Configuration (backend/main.py)
+## Backend Configuration
 
-**CORS Origins** - Add your production Vercel domain:
-```python
-allow_origins=[
-    "http://localhost:3000",
-    "https://*.vercel.app",
-    "https://your-actual-domain.vercel.app",  # Replace with your domain
-],
+Set this environment variable in Railway dashboard:
+
+**Required:**
 ```
+ALLOWED_ORIGINS=https://your-project-abc123.vercel.app,https://your-custom-domain.com
+```
+
+*Note: Comma-separated list of allowed origins. Do not include localhost in production.*
 
 ## Frontend Configuration
 
@@ -27,11 +27,7 @@ NEXT_PUBLIC_BACKEND_URL=https://your-railway-app.railway.app
    - Set root directory: `backend/`
    - Copy Railway URL
 
-2. **Update Backend CORS:**
-   - Add your Vercel domain to `allow_origins` in `backend/main.py`
-   - Commit and push changes
-
-3. **Deploy Frontend to Vercel:**
+2. **Deploy Frontend to Vercel:**
    - Import GitHub repository  
    - Add environment variable: `NEXT_PUBLIC_BACKEND_URL`
    - Deploy

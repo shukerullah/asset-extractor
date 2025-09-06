@@ -6,6 +6,7 @@ Production-ready API for AI-powered background removal
 
 import io
 import logging
+import os
 import time
 from typing import Optional
 
@@ -32,14 +33,21 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# Configure CORS for Vercel frontend
+# Configure CORS origins from environment
+allowed_origins = []
+
+# Get allowed origins from environment variable (comma-separated)
+if origins_env := os.getenv("ALLOWED_ORIGINS"):
+    allowed_origins = [origin.strip() for origin in origins_env.split(",")]
+else:
+    # Default for development
+    allowed_origins = ["http://localhost:3000"]
+
+logger.info(f"🌐 CORS allowed origins: {allowed_origins}")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "https://*.vercel.app",
-        "https://your-actual-domain.vercel.app",  # Replace with your domain
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
