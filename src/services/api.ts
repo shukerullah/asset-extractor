@@ -2,18 +2,15 @@ import type { Asset, ApiError } from '@/types';
 import { logger } from '@/utils/logger';
 
 export class BackgroundRemovalService {
-  private static readonly API_ENDPOINT = process.env.NODE_ENV === 'production' 
-    ? process.env.NEXT_PUBLIC_BACKEND_URL || 'https://example.railway.app'
-    : '/api/remove-background';
+  private static readonly BACKEND_URL = 
+    process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
 
   static async removeBackground(blob: Blob, index: number): Promise<Asset> {
     try {
       const formData = new FormData();
       formData.append('image', blob);
 
-      const endpoint = process.env.NODE_ENV === 'production' 
-        ? `${this.API_ENDPOINT}/remove-background`
-        : this.API_ENDPOINT;
+      const endpoint = `${this.BACKEND_URL}/remove-background`;
       
       const response = await fetch(endpoint, {
         method: 'POST',

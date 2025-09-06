@@ -19,10 +19,24 @@
 
 ## Development
 
+**Install dependencies:**
 ```bash
-npm run dev    # Start development server
-npm run build  # Production build  
-npm run lint   # Run ESLint
+npm install
+cd backend && pip install -r requirements.txt
+```
+
+**Start development:**
+```bash
+npm run dev:full    # Start both services
+# Visit: http://localhost:3000
+```
+
+**Other commands:**
+```bash
+npm run dev         # Frontend only
+npm run backend     # Backend only  
+npm run build       # Production build  
+npm run lint        # Run ESLint
 ```
 
 ## Code Style

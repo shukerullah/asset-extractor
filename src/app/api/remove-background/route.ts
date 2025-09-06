@@ -1,12 +1,36 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(): Promise<NextResponse> {
-  return NextResponse.json(
-    { 
-      error: 'API moved to Railway backend',
-      message: 'This endpoint is disabled. Use Railway backend directly.',
-      backend_url: process.env.NEXT_PUBLIC_BACKEND_URL || 'Backend URL not configured'
-    },
-    { status: 501 }
-  );
+export async function POST(request: NextRequest): Promise<NextResponse> {
+  try {
+    const formData = await request.formData();
+    
+    const response = await fetch('http://localhost:8000/remove-background', {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Backend responded with ${response.status}`);
+    }
+
+    const blob = await response.blob();
+    
+    return new NextResponse(blob, {
+      status: 200,
+      headers: {
+        'Content-Type': 'image/png',
+      },
+    });
+
+  } catch (error) {
+    console.error('Background removal failed:', error);
+    
+    return NextResponse.json(
+      { 
+        error: 'Backend unavailable',
+        message: 'Please start the backend: cd backend && python main.py'
+      },
+      { status: 500 }
+    );
+  }
 }

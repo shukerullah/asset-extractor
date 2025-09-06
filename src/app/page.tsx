@@ -287,6 +287,7 @@ export default function AssetExtractorApp() {
                     src="/assets/village_with-background.png"
                     alt="Village with background"
                     fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     style={{ objectFit: "cover" }}
                   />
                 </div>
@@ -301,6 +302,7 @@ export default function AssetExtractorApp() {
                     src="/assets/village_without-background.png"
                     alt="Village without background"
                     fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     style={{ objectFit: "cover" }}
                   />
                 </div>
@@ -341,6 +343,7 @@ export default function AssetExtractorApp() {
                   alt="Upload icon showing document with arrow pointing up"
                   src="/assets/upload.png"
                   fill
+                  sizes="64px"
                   style={{ objectFit: "contain", padding: "16px" }}
                 />
               </div>
@@ -352,6 +355,7 @@ export default function AssetExtractorApp() {
                   src="/assets/select.png"
                   alt="Selection tool icon showing cursor with dotted rectangle"
                   fill
+                  sizes="64px"
                   style={{ objectFit: "contain", padding: "16px" }}
                 />
               </div>
@@ -367,6 +371,7 @@ export default function AssetExtractorApp() {
                   src="/assets/download.png"
                   alt="Download icon showing arrow pointing down to folder"
                   fill
+                  sizes="64px"
                   style={{ objectFit: "contain", padding: "16px" }}
                 />
               </div>
@@ -419,6 +424,7 @@ export default function AssetExtractorApp() {
                 src="/assets/village_with-background.png"
                 alt="Village with background - source image"
                 fill
+                sizes="(max-width: 768px) 100vw, 60vw"
                 style={{ objectFit: "cover" }}
               />
             </div>
@@ -429,6 +435,7 @@ export default function AssetExtractorApp() {
                     src="/assets/house.png"
                     alt="Extracted house"
                     fill
+                    sizes="120px"
                     style={{ objectFit: "contain" }}
                   />
                 </div>
@@ -437,6 +444,7 @@ export default function AssetExtractorApp() {
                     src="/assets/castle.png"
                     alt="Extracted castle"
                     fill
+                    sizes="120px"
                     style={{ objectFit: "contain" }}
                   />
                 </div>
@@ -445,6 +453,7 @@ export default function AssetExtractorApp() {
                     src="/assets/mill.png"
                     alt="Extracted mill"
                     fill
+                    sizes="120px"
                     style={{ objectFit: "contain" }}
                   />
                 </div>
@@ -588,6 +597,7 @@ export default function AssetExtractorApp() {
                 alt="Buy Me A Coffee"
                 width={200}
                 height={55}
+                sizes="200px"
                 className={styles.coffeeButton}
               />
             </a>

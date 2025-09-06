@@ -58,10 +58,11 @@ async def startup_event():
     logger.info("📦 Loading AI model (u2net)...")
     
     try:
-        model_session = new_session("u2net")
+        model_session = new_session('u2net')
         logger.info("✅ AI model loaded successfully!")
     except Exception as e:
         logger.error(f"❌ Failed to load AI model: {e}")
+        logger.error("Backend will not start without AI model")
         raise e
 
 @app.get("/")
@@ -76,11 +77,12 @@ async def root():
 
 @app.get("/health")
 async def health_check():
-    """Health check endpoint for Railway"""
+    """Health check endpoint for Railway and development"""
     return {
-        "status": "healthy",
+        "status": "healthy" if model_session is not None else "starting",
         "timestamp": time.time(),
-        "model_loaded": model_session is not None
+        "model_loaded": model_session is not None,
+        "message": "Backend ready" if model_session is not None else "AI model still loading..."
     }
 
 @app.post("/remove-background")

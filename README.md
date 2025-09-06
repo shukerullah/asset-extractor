@@ -31,12 +31,27 @@
 
 ### Local Development
 
+**1. Install dependencies:**
 ```bash
-git clone https://github.com/username/asset-extractor.git
-cd asset-extractor
 npm install
+cd backend && pip install -r requirements.txt
+```
+
+**2. Start both services:**
+```bash
+npm run dev:full
+```
+
+**Or run separately:**
+```bash
+# Terminal 1: Backend
+cd backend && python main.py
+
+# Terminal 2: Frontend  
 npm run dev
 ```
+
+Visit: http://localhost:3000
 
 ## Architecture
 
