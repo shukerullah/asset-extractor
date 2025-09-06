@@ -1,157 +1,102 @@
-# 🎮 Game Asset Extractor
+# 🎯 Asset Extractor
 
-A powerful web application for extracting transparent PNG assets from AI-generated images using local AI background removal.
+**AI-powered background removal tool. Upload any image, select objects, and download transparent PNGs instantly.**
 
-![Next.js](https://img.shields.io/badge/Next.js-15.5.2-black)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
-![Python](https://img.shields.io/badge/Python-3.11-green)
-![AI Powered](https://img.shields.io/badge/AI-rembg-red)
+[![Next.js](https://img.shields.io/badge/Next.js-15.5.2-black)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://typescriptlang.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.104.1-green)](https://fastapi.tiangolo.com/)
+[![AI Powered](https://img.shields.io/badge/AI-rembg-red)](https://github.com/danielgatis/rembg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 ## ✨ Features
 
-- **🎯 Interactive Selection**: Click and drag to select objects from images
-- **🤖 AI Background Removal**: Local processing with multiple AI models (u2net, u2netp, etc.)
-- **🔄 Batch Processing**: Process multiple selections simultaneously
-- **📱 Responsive Design**: Works on desktop and mobile devices
-- **⚡ Offline Capable**: No external API dependencies
-- **🎨 Professional UI**: Beautiful CSS modules with animations
-- **📦 Easy Downloads**: Individual or bulk asset downloads
-- **🛡️ Production Ready**: Rate limiting, error monitoring, and security headers
-- **🐳 Docker Support**: One-click deployment with Docker
-- **📊 Performance Metrics**: Built-in monitoring and optimization
+- **Interactive Selection**: Click and drag to select objects from images
+- **AI Background Removal**: Powered by state-of-the-art AI models (u2net, isnet)
+- **Batch Processing**: Process multiple selections simultaneously  
+- **Professional UI**: Clean, responsive design with canvas editing tools
+- **Fast & Secure**: Modern cloud architecture with Railway + Vercel
+- **Open Source**: MIT licensed, ready to fork and deploy
 
-## 🚀 Quick Start
+## 🚀 Quick Deploy
 
-### Prerequisites
+### Deploy to Vercel + Railway (Recommended)
 
-- **Node.js** 18+ 
-- **Python** 3.8+
-- **pnpm** (recommended) or npm
+1. **Fork this repository**
 
-### Installation
-
-1. **Clone the repository**
+2. **Deploy Backend to Railway**
    ```bash
-   git clone <your-repo-url>
-   cd asset-extractor
+   # Railway will auto-detect the backend/ folder
+   # Visit: https://railway.app/new
+   # Import your fork, set root directory to 'backend/'
    ```
 
-2. **Install dependencies**
+3. **Deploy Frontend to Vercel**  
    ```bash
-   pnpm install
-   pip3 install rembg onnxruntime
+   # Visit: https://vercel.com/new
+   # Import your fork, add environment variable:
+   # NEXT_PUBLIC_BACKEND_URL=https://your-railway-app.railway.app
    ```
 
-3. **Run development server**
-   ```bash
-   pnpm dev
-   ```
+4. **You're live!** 🎉
 
-4. **Open your browser**
-   ```
-   http://localhost:3000
-   ```
+### Local Development
 
-## 🎨 How to Use
+```bash
+# Clone and install
+git clone https://github.com/yourusername/asset-extractor.git
+cd asset-extractor
+npm install
 
-1. **Upload Image**: Click or drag & drop an image
-2. **Select Objects**: Click and drag to create circular selections
-3. **Generate Assets**: Click "Generate Assets" to process selections
-4. **Download**: Download individual assets or all at once
+# Start development server
+npm run dev
+```
 
 ## 🏗️ Architecture
 
-### Frontend (Next.js + TypeScript)
-- **App Router**: Modern Next.js routing
-- **CSS Modules**: Scoped styling with animations
-- **TypeScript**: Full type safety
-- **AAA Pattern**: Arrange, Act, Assert structure
-
-### Backend (Python + AI)
-- **rembg Library**: State-of-the-art background removal
-- **Multiple Models**: u2net, u2netp, u2net_human_seg, etc.
-- **Local Processing**: No external API dependencies
-- **Automatic Cleanup**: Temporary file management
-
-### API Design
 ```
-POST /api/remove-background
-- Accepts: multipart/form-data with image file
-- Returns: PNG with transparent background
-- Timeout: 5 minutes (for model downloads)
-- Error Handling: Graceful fallbacks
+┌─────────────┐    API calls    ┌──────────────┐
+│   Vercel    │ ──────────────→ │   Railway    │
+│  (Frontend) │                 │  (Backend)   │
+│   Next.js   │                 │   FastAPI    │
+└─────────────┘                 └──────────────┘
 ```
 
-## 🔧 Production Deployment
+- **Frontend**: Next.js with TypeScript, Canvas API, responsive design
+- **Backend**: FastAPI with rembg AI models, automatic scaling
+- **Deployment**: Vercel (frontend) + Railway (backend)
 
-### Quick Deploy with Docker
-```bash
-./deploy.sh
-```
+## 📖 Documentation
 
-### Manual Build
-```bash
-pnpm build
-pnpm start
-```
+- [**Deployment Guide**](./docs/DEPLOYMENT.md) - Complete deployment instructions
+- [**Railway Setup**](./docs/RAILWAY_DEPLOYMENT.md) - Backend deployment details  
+- [**API Reference**](./docs/API.md) - Backend API documentation
 
-### Docker Compose
-```bash
-docker-compose up -d
-```
+## 🤝 Contributing
 
-### Environment Setup
-- Ensure Python 3.8+ is available
-- Pre-download AI models for faster first use
-- Configure appropriate timeout values
+We welcome contributions! See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
-📋 **See [DEPLOYMENT.md](./DEPLOYMENT.md) for comprehensive deployment guide**
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit changes: `git commit -m 'Add amazing feature'`
+4. Push to branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
 
-## 🎯 Performance & Security
+## 📄 License
 
-### Performance Optimizations
-- **Model Caching**: AI models download once, cached locally
-- **Bundle Optimization**: 117KB first load JS size  
-- **Static Generation**: Pre-rendered pages for faster loading
-- **Automatic Cleanup**: Prevents disk bloat
-- **Rate Limiting**: 5 requests/minute per IP
-- **Response Caching**: 1-hour cache for processed images
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
-### Security Features
-- **Input Validation**: File size, type, and content validation
-- **Security Headers**: CSRF, XSS, and content-type protection
-- **Rate Limiting**: Prevents API abuse
-- **Error Monitoring**: Built-in logging and monitoring
-- **Temp File Cleanup**: Automatic cleanup prevents data leaks
+## 🛡️ Security
 
-## 📁 Project Structure
+For security concerns, please see [SECURITY.md](./docs/SECURITY.md).
 
-```
-src/
-├── app/                               # Next.js app router
-├── components/                        # Reusable UI components
-├── services/                         # Business logic & API calls
-├── types/                           # TypeScript definitions
-├── utils/                           # Helper functions
-└── middleware.ts                    # Security & rate limiting
+## 🙏 Acknowledgments
 
-backend/
-└── remove_background.py            # Python AI processing script
-```
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-1. **"Module not found: rembg"**
-   ```bash
-   pip3 install rembg onnxruntime
-   ```
-
-2. **"Model download timeout"**
-   - Wait for initial model download (~176MB)
-   - Subsequent uses will be instant
+- [rembg](https://github.com/danielgatis/rembg) - AI background removal library
+- [Next.js](https://nextjs.org/) - React framework  
+- [FastAPI](https://fastapi.tiangolo.com/) - Modern Python web framework
+- [Railway](https://railway.app/) - Backend hosting
+- [Vercel](https://vercel.com/) - Frontend hosting
 
 ---
 
-**Built with ❤️ using Next.js, TypeScript, and AI**
+**Made with ❤️ for creators worldwide. Star ⭐ if you found this helpful!**
