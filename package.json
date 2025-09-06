@@ -2,6 +2,18 @@
   "name": "asset-extractor",
   "version": "0.1.0",
   "private": true,
+  "description": "Fast, free background remover tool. Upload any image, select objects, and download transparent PNG assets instantly.",
+  "author": "Pir Shukarulalh Shah <shuker_rashdi@yahoo.com> (https://www.shukarullah.com)",
+  "homepage": "https://github.com/shukerullah/asset-extractor",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shukerullah/asset-extractor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shukerullah/asset-extractor/issues"
+  },
+  "keywords": ["background-remover", "transparent-png", "asset-extractor", "ai", "nextjs", "fastapi"],
+  "license": "MIT",
   "scripts": {
     "dev": "next dev --turbopack",
     "dev:full": "concurrently \"npm run backend\" \"npm run dev\"",
