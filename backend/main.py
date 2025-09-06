@@ -38,7 +38,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "https://*.vercel.app",
-        "https://asset-extractor.vercel.app",  # Add your actual Vercel domain
+        "https://your-actual-domain.com",  # Add your actual Vercel domain
     ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "OPTIONS"],

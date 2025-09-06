@@ -29,6 +29,8 @@
    - Import your fork
    - Add environment variable: `NEXT_PUBLIC_BACKEND_URL=https://your-app.railway.app`
 
+**⚠️ Important:** See [docs/PRODUCTION_SETUP.md](./docs/PRODUCTION_SETUP.md) for required configuration updates before going live.
+
 ### Local Development
 
 **1. Install dependencies:**
