@@ -1,1 +1,17 @@
+# Backend directory (deployed separately on Railway)
 backend
+
+# Documentation
+docs
+*.md
+LICENSE
+
+# Development files
+.env.local.example
+.gitignore
+.eslintrc.json
+eslint.config.mjs
+
+# Assets that aren't used in production
+public/assets/*.png
+public/assets/*.jpg
