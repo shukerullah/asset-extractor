@@ -593,6 +593,22 @@ const Canvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
       return () => window.removeEventListener("keydown", handleKeyDown);
     }, [selectedSelectionId, onSelectionDelete]);
 
+    // Touch event listeners setup
+    useEffect(() => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+
+      const handleTouchStart = (event: TouchEvent) => {
+        handlePointerDown(event as any);
+      };
+
+      canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+
+      return () => {
+        canvas.removeEventListener('touchstart', handleTouchStart);
+      };
+    }, [handlePointerDown]);
+
     return (
       <canvas
         ref={canvasRef}
@@ -600,7 +616,6 @@ const Canvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
         onMouseDown={handlePointerDown}
         onMouseMove={handlePointerMove}
         onMouseUp={handlePointerUp}
-        onTouchStart={handlePointerDown}
         onTouchMove={handlePointerMove}
         onTouchEnd={handlePointerUp}
         style={{
