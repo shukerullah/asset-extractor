@@ -41,18 +41,7 @@ export default function CanvasSection({
       <h3 id="workspace" className="sr-only">Image Selection Workspace</h3>
       
       <div className={styles.instructionsPanel}>
-        <div className={styles.instructionsHeader}>
-          <h4>📝 Instructions:</h4>
-          <div className={styles.selectionCounter}>
-            <span className={`${styles.counterText} ${isSelectionLimitReached ? styles.limitReached : ''}`}>
-              Selections: {appState.selections.length}
-              {maxSelections !== null && ` / ${maxSelections}`}
-            </span>
-            {isSelectionLimitReached && (
-              <span className={styles.limitWarning}>⚠️ Limit reached</span>
-            )}
-          </div>
-        </div>
+        <h4>📝 Instructions:</h4>
         <p>
           • <strong>Create:</strong> Click and drag to create rectangular
           selections
@@ -73,7 +62,8 @@ export default function CanvasSection({
         </p>
       </div>
 
-      <Canvas
+      <div className={styles.canvasContainer}>
+        <Canvas
         ref={canvasRef}
         image={appState.image!}
         selections={appState.selections}
@@ -88,6 +78,16 @@ export default function CanvasSection({
         onSelectionDelete={onSelectionDelete}
         disabled={appState.loading}
       />
+        
+        {/* Selection Limit Overlay Warning */}
+        {isSelectionLimitReached && (
+          <div className={styles.limitOverlay}>
+            <div className={styles.limitOverlayContent}>
+              ⚠️ Selection limit reached
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Controls */}
       <div className={styles.controlsGroup}>
