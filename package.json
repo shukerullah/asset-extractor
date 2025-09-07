@@ -12,7 +12,14 @@
   "bugs": {
     "url": "https://github.com/shukerullah/asset-extractor/issues"
   },
-  "keywords": ["background-remover", "transparent-png", "asset-extractor", "ai", "nextjs", "fastapi"],
+  "keywords": [
+    "background-remover",
+    "transparent-png",
+    "asset-extractor",
+    "ai",
+    "nextjs",
+    "fastapi"
+  ],
   "license": "MIT",
   "scripts": {
     "dev": "next dev --turbopack",
@@ -20,7 +27,7 @@
     "backend": "cd backend && python main.py",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "next": "15.5.2",

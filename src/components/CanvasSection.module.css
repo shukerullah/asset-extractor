@@ -1,0 +1,161 @@
+/* === CANVAS WORKSPACE === */
+.workspaceSection {
+  background: #ffffff;
+  margin: 40px 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.instructionsPanel {
+  background: #f8f9fa;
+  border: 1px solid #e8eaed;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  text-align: left;
+  max-width: 800px;
+  width: 100%;
+}
+
+.instructionsPanel h4 {
+  font-size: 14px;
+  font-weight: 500;
+  color: #202124;
+  margin: 0 0 12px 0;
+}
+
+.instructionsPanel p {
+  font-size: 14px;
+  color: #5f6368;
+  margin: 4px 0;
+  line-height: 1.4;
+}
+
+.instructionsPanel p strong {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.instructionsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.instructionsHeader h4 {
+  margin: 0;
+}
+
+.canvasContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.limitOverlay {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.limitOverlayContent {
+  background: #d93025;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.counterText {
+  font-size: 14px;
+  color: #5f6368;
+  font-weight: 500;
+}
+
+.counterText.limitReached {
+  color: #d93025;
+}
+
+.limitWarning {
+  font-size: 12px;
+  color: #d93025;
+  font-weight: 500;
+}
+
+
+.controlsGroup {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin: 20px 0 0;
+  flex-wrap: wrap;
+}
+
+.buttonPrimary {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.buttonPrimary:hover:not(:disabled) {
+  background: var(--primary-color-hover);
+}
+
+.buttonPrimary:disabled {
+  background: #dadce0;
+  color: #80868b;
+  cursor: not-allowed;
+}
+
+.buttonSecondary {
+  background: white;
+  color: #5f6368;
+  border: 1px solid #dadce0;
+  border-radius: 6px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.buttonSecondary:hover:not(:disabled) {
+  background: #f8f9fa;
+  border-color: #5f6368;
+}
+
+.buttonSecondary:disabled {
+  background: #f8f9fa;
+  color: #dadce0;
+  cursor: not-allowed;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 480px) {
+  .instructionsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .counterText {
+    font-size: 13px;
+  }
+
+  .limitWarning {
+    font-size: 11px;
+  }
+}

@@ -15,10 +15,18 @@ ALLOWED_ORIGINS=https://your-project-abc123.vercel.app,https://your-custom-domai
 
 ## Frontend Configuration
 
-**Environment Variable** - Set in Vercel dashboard:
+**Environment Variables** - Set in Vercel dashboard:
+
+**Required:**
 ```
 NEXT_PUBLIC_BACKEND_URL=https://your-railway-app.railway.app
 ```
+
+**Optional:**
+```
+NEXT_PUBLIC_MAX_SELECTIONS=5
+```
+*Limits number of selections per image to protect server resources. Default: unlimited*
 
 ## Deployment Steps
 

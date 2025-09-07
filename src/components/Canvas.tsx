@@ -4,9 +4,9 @@ import { ImageProcessor } from "@/services/imageProcessor";
 import type { Selection, SelectionCanvasProps } from "@/types";
 import { logger } from "@/utils/logger";
 import { forwardRef, useCallback, useEffect, useRef, useState } from "react";
-import styles from "../app/page.module.css";
+import styles from "./Canvas.module.css";
 
-const SelectionCanvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
+const Canvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
   (
     {
       image,
@@ -292,16 +292,36 @@ const SelectionCanvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
       drawCanvas();
     }, [drawCanvas]);
 
-    // Get mouse position relative to canvas
-    const getMousePosition = useCallback(
-      (event: React.MouseEvent<HTMLCanvasElement>) => {
+    // Get mouse/touch position relative to canvas
+    const getPointerPosition = useCallback(
+      (event: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
         const canvas = canvasRef.current;
         if (!canvas) return { x: 0, y: 0 };
 
         const rect = canvas.getBoundingClientRect();
+        
+        let clientX: number, clientY: number;
+        
+        if ('touches' in event) {
+          // Touch event
+          if (event.touches.length > 0) {
+            clientX = event.touches[0].clientX;
+            clientY = event.touches[0].clientY;
+          } else if (event.changedTouches.length > 0) {
+            clientX = event.changedTouches[0].clientX;
+            clientY = event.changedTouches[0].clientY;
+          } else {
+            return { x: 0, y: 0 };
+          }
+        } else {
+          // Mouse event
+          clientX = event.clientX;
+          clientY = event.clientY;
+        }
+        
         return {
-          x: (event.clientX - rect.left) * (canvas.width / rect.width),
-          y: (event.clientY - rect.top) * (canvas.height / rect.height),
+          x: (clientX - rect.left) * (canvas.width / rect.width),
+          y: (clientY - rect.top) * (canvas.height / rect.height),
         };
       },
       [canvasRef]
@@ -353,12 +373,13 @@ const SelectionCanvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
       ]
     );
 
-    // Mouse event handlers
-    const handleMouseDown = useCallback(
-      (event: React.MouseEvent<HTMLCanvasElement>) => {
+    // Unified pointer down handler
+    const handlePointerDown = useCallback(
+      (event: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
         if (disabled) return;
 
-        const position = getMousePosition(event);
+
+        const position = getPointerPosition(event);
 
         // Check for resize handle click
         if (selectedSelectionId) {
@@ -397,7 +418,7 @@ const SelectionCanvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
       },
       [
         disabled,
-        getMousePosition,
+        getPointerPosition,
         selectedSelectionId,
         selections,
         getSelectionById,
@@ -408,12 +429,13 @@ const SelectionCanvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
       ]
     );
 
-    const handleMouseMove = useCallback(
-      (event: React.MouseEvent<HTMLCanvasElement>) => {
-        const position = getMousePosition(event);
+    // Unified pointer move handler
+    const handlePointerMove = useCallback(
+      (event: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
+        const position = getPointerPosition(event);
 
-        // Update cursor
-        if (!isDragging && !isResizing) {
+        // Update cursor (only for mouse events)
+        if (!('touches' in event) && !isDragging && !isResizing) {
           updateCursor(position);
         }
 
@@ -510,7 +532,7 @@ const SelectionCanvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
         }
       },
       [
-        getMousePosition,
+        getPointerPosition,
         updateCursor,
         disabled,
         currentSelection,
@@ -526,7 +548,8 @@ const SelectionCanvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
       ]
     );
 
-    const handleMouseUp = useCallback(() => {
+    // Unified pointer up handler
+    const handlePointerUp = useCallback(() => {
       if (disabled) return;
 
       // Complete current selection
@@ -566,16 +589,21 @@ const SelectionCanvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
       return () => window.removeEventListener("keydown", handleKeyDown);
     }, [selectedSelectionId, onSelectionDelete]);
 
+
     return (
       <canvas
         ref={canvasRef}
         className={styles.canvas}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
+        onMouseDown={handlePointerDown}
+        onMouseMove={handlePointerMove}
+        onMouseUp={handlePointerUp}
+        onTouchStart={handlePointerDown}
+        onTouchMove={handlePointerMove}
+        onTouchEnd={handlePointerUp}
         style={{
           cursor,
           opacity: disabled ? 0.7 : 1,
+          touchAction: 'none', // Prevent default touch behaviors
         }}
         tabIndex={0} // Enable keyboard events
       />
@@ -583,6 +611,6 @@ const SelectionCanvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
   }
 );
 
-SelectionCanvas.displayName = "SelectionCanvas";
+Canvas.displayName = "Canvas";
 
-export default SelectionCanvas;
+export default Canvas;

@@ -12,10 +12,17 @@ import styles from "./page.module.css";
 
 // Components
 import AssetGrid from "@/components/AssetGrid";
+import BeforeAfterSlider from "@/components/BeforeAfterSlider";
+import CanvasSection from "@/components/CanvasSection";
+import FooterSection from "@/components/FooterSection";
 import ProgressBar from "@/components/ProgressBar";
-import SelectionCanvas from "@/components/SelectionCanvas";
 
 export default function AssetExtractorApp() {
+  // Get selection limit from environment variable
+  const maxSelections = process.env.NEXT_PUBLIC_MAX_SELECTIONS 
+    ? parseInt(process.env.NEXT_PUBLIC_MAX_SELECTIONS, 10) 
+    : null; // null means unlimited
+
   const [appState, setAppState] = useState<AppState>({
     image: null,
     selections: [],
@@ -40,6 +47,9 @@ export default function AssetExtractorApp() {
 
   const imageRef = useRef<HTMLImageElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  // Check if selection limit is reached
+  const isSelectionLimitReached = maxSelections !== null && appState.selections.length >= maxSelections;
 
   const handleImageUpload = useCallback(async (file: File) => {
     try {
@@ -80,11 +90,22 @@ export default function AssetExtractorApp() {
 
   const handleSelectionStart = useCallback(
     (point: { x: number; y: number }) => {
-      // Clear any existing selection
+      // Check if selection limit is reached
+      if (isSelectionLimitReached) {
+        setAppState((prev) => ({
+          ...prev,
+          error: `Maximum ${maxSelections} selections allowed. Please clear some selections or generate assets first.`,
+        }));
+        return;
+      }
+
+      // Clear any existing selection and error
       setCanvasState((prev) => ({
         ...prev,
         selectedSelectionId: null,
       }));
+
+      setAppState((prev) => ({ ...prev, error: null }));
 
       setCanvasState({
         isSelecting: true,
@@ -103,7 +124,7 @@ export default function AssetExtractorApp() {
         resizeHandle: null,
       });
     },
-    []
+    [isSelectionLimitReached, maxSelections]
   );
 
   const handleSelectionUpdate = useCallback((selection: Selection) => {
@@ -280,35 +301,12 @@ export default function AssetExtractorApp() {
             </span>
           </div>
           <div className={styles.heroVisual}>
-            <div className={styles.comparisonContainer}>
-              <div className={styles.comparisonItem}>
-                <div className={styles.comparisonImage}>
-                  <Image
-                    src="/assets/village_with-background.png"
-                    alt="Village with background"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    style={{ objectFit: "cover" }}
-                  />
-                </div>
-                <span className={styles.comparisonLabel}>Before</span>
-              </div>
-              <div className={styles.comparisonArrow}>
-                <div className={styles.arrowIcon}>→</div>
-              </div>
-              <div className={styles.comparisonItem}>
-                <div className={styles.comparisonImage}>
-                  <Image
-                    src="/assets/village_without-background.png"
-                    alt="Village without background"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    style={{ objectFit: "cover" }}
-                  />
-                </div>
-                <span className={styles.comparisonLabel}>After</span>
-              </div>
-            </div>
+            <BeforeAfterSlider
+              beforeImage="/assets/village_with-background.png"
+              afterImage="/assets/village_without-background.png"
+              beforeAlt="Village with background"
+              afterAlt="Village without background"
+            />
           </div>
         </div>
       </header>
@@ -426,6 +424,7 @@ export default function AssetExtractorApp() {
                 fill
                 sizes="(max-width: 768px) 100vw, 60vw"
                 style={{ objectFit: "cover" }}
+                priority
               />
             </div>
             <div className={styles.demoResults}>
@@ -476,65 +475,21 @@ export default function AssetExtractorApp() {
 
         {/* Canvas Selection Section */}
         {appState.image && (
-          <section className={styles.workspaceSection} aria-labelledby="workspace">
-            <h3 id="workspace" className="sr-only">Image Selection Workspace</h3>
-            <div className={styles.instructionsPanel}>
-              <h4>📝 Instructions:</h4>
-              <p>
-                • <strong>Create:</strong> Click and drag to create rectangular
-                selections
-              </p>
-              <p>
-                • <strong>Select:</strong> Click on any selection to select it
-              </p>
-              <p>
-                • <strong>Move:</strong> Drag selected selection to move it
-              </p>
-              <p>
-                • <strong>Resize:</strong> Drag the corner/edge handles to
-                resize
-              </p>
-              <p>
-                • <strong>Delete:</strong> Press Delete/Backspace key to remove
-                selected
-              </p>
-            </div>
-
-            <SelectionCanvas
-              ref={canvasRef}
-              image={appState.image}
-              selections={appState.selections}
-              currentSelection={canvasState.currentSelection}
-              selectedSelectionId={canvasState.selectedSelectionId}
-              onSelectionStart={handleSelectionStart}
-              onSelectionUpdate={handleSelectionUpdate}
-              onSelectionComplete={handleSelectionComplete}
-              onSelectionSelect={handleSelectionSelect}
-              onSelectionMove={handleSelectionMove}
-              onSelectionResize={handleSelectionResize}
-              onSelectionDelete={handleSelectionDelete}
-              disabled={appState.loading}
-            />
-
-            {/* Controls */}
-            <div className={styles.controlsGroup}>
-              <button
-                onClick={handleClearSelections}
-                disabled={appState.loading || appState.selections.length === 0}
-                className={styles.buttonSecondary}
-              >
-                Clear All
-              </button>
-
-              <button
-                onClick={handleGenerateAssets}
-                disabled={appState.loading || appState.selections.length === 0}
-                className={styles.buttonPrimary}
-              >
-                {appState.loading ? "Processing..." : "Generate Assets"}
-              </button>
-            </div>
-          </section>
+          <CanvasSection
+            appState={appState}
+            canvasState={canvasState}
+            canvasRef={canvasRef}
+            maxSelections={maxSelections}
+            onSelectionStart={handleSelectionStart}
+            onSelectionUpdate={handleSelectionUpdate}
+            onSelectionComplete={handleSelectionComplete}
+            onSelectionSelect={handleSelectionSelect}
+            onSelectionMove={handleSelectionMove}
+            onSelectionResize={handleSelectionResize}
+            onSelectionDelete={handleSelectionDelete}
+            onClearSelections={handleClearSelections}
+            onGenerateAssets={handleGenerateAssets}
+          />
         )}
 
         {/* Progress Section */}
@@ -563,51 +518,7 @@ export default function AssetExtractorApp() {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className={styles.footer}>
-        <div className={styles.footerMessage}>
-          <h3>Remove backgrounds from any image in seconds</h3>
-          <p>
-            Fast, reliable, and completely free. Extract objects, remove
-            backgrounds, and download transparent PNGs with just a few clicks.
-          </p>
-        </div>
-
-        <div className={styles.footerLinks}>
-          <div className={styles.socialLinks}>
-            <p>
-              Follow me on Twitter:{" "}
-              <a
-                href="https://twitter.com/shukerullah"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                @shukerullah
-              </a>
-            </p>
-          </div>
-          <div className={styles.coffeeLink}>
-            <a
-              href="https://www.buymeacoffee.com/shukerullah"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png"
-                alt="Buy Me A Coffee"
-                width={200}
-                height={55}
-                sizes="200px"
-                className={styles.coffeeButton}
-              />
-            </a>
-          </div>
-        </div>
-
-        <div className={styles.footerBottom}>
-          <p>Made with ❤️ for creators worldwide.</p>
-        </div>
-      </footer>
+      <FooterSection />
     </div>
   );
 }
