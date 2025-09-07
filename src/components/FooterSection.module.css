@@ -1,0 +1,159 @@
+/* === FOOTER === */
+.footer {
+  background: #f8f9fa;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 80px;
+  padding: 60px 0 20px;
+}
+
+.footerMessage {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 40px;
+  text-align: center;
+}
+
+.footerMessage h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
+}
+
+.footerMessage p {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.footerLinks {
+  max-width: 800px;
+  margin: 30px auto 20px;
+  padding: 0 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.socialLinks p {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
+.socialLinks a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.socialLinks a:hover {
+  color: var(--primary-color-hover);
+}
+
+.githubButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #24292e;
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: 1px solid #24292e;
+}
+
+.githubButton:hover {
+  background: #1a1e22;
+  border-color: #1a1e22;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(36, 41, 46, 0.3);
+}
+
+.githubIcon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.coffeeButton {
+  height: 41px;
+  width: 174px;
+  box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5);
+  border-radius: 4px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.coffeeButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0px 5px 4px 0px rgba(190, 190, 190, 0.6);
+}
+
+.footerBottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 40px 0;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 40px;
+}
+
+.footerBottom p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  text-align: center;
+}
+
+/* === RESPONSIVE DESIGN === */
+
+/* Mobile Styles (480px and below) */
+@media (max-width: 480px) {
+  .footerMessage {
+    padding: 0 20px;
+  }
+
+  .footerMessage h3 {
+    font-size: 18px;
+  }
+
+  .footerMessage p {
+    font-size: 14px;
+  }
+
+  .footerLinks {
+    padding: 0 20px;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .githubButton {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+  
+  .githubIcon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .coffeeButton {
+    height: 35px;
+    width: 148px;
+  }
+
+  .footerBottom {
+    padding: 20px 20px 0;
+  }
+
+  .socialLinks p {
+    font-size: 14px;
+    text-align: center;
+  }
+}
