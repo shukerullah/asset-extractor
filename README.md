@@ -31,6 +31,10 @@
      - `NEXT_PUBLIC_BACKEND_URL=https://your-app.railway.app`
      - `NEXT_PUBLIC_MAX_SELECTIONS=5` (optional, limits selections to protect server)
 
+**Backend configuration** (set in Railway):
+   - `ALLOWED_ORIGINS=https://your-app.vercel.app`
+   - `MODEL_NAME=u2netp` (optional, AI model: u2netp=fast, u2net=quality)
+
 **⚠️ Important:** See [docs/PRODUCTION_SETUP.md](./docs/PRODUCTION_SETUP.md) for required configuration updates before going live.
 
 ### Local Development

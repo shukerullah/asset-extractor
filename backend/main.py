@@ -33,6 +33,9 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
+# Configure environment variables
+MODEL_NAME = os.getenv("MODEL_NAME", "u2netp")  # Default to lighter model
+
 # Configure CORS origins from environment
 allowed_origins = []
 
@@ -44,6 +47,7 @@ else:
     allowed_origins = ["http://localhost:3000"]
 
 logger.info(f"🌐 CORS allowed origins: {allowed_origins}")
+logger.info(f"🤖 AI model: {MODEL_NAME}")
 
 app.add_middleware(
     CORSMiddleware,
@@ -63,10 +67,10 @@ async def startup_event():
     """Initialize AI model on startup"""
     global model_session
     logger.info("🚀 Starting Asset Extractor Backend...")
-    logger.info("📦 Loading AI model (u2net)...")
+    logger.info(f"📦 Loading AI model ({MODEL_NAME})...")
     
     try:
-        model_session = new_session('u2net')
+        model_session = new_session(MODEL_NAME)
         logger.info("✅ AI model loaded successfully!")
     except Exception as e:
         logger.error(f"❌ Failed to load AI model: {e}")
@@ -182,7 +186,7 @@ async def get_available_models():
             "u2net_cloth_seg",
             "isnet-general-use"
         ],
-        "current": "u2net",
+        "current": MODEL_NAME,
         "loaded": model_session is not None
     }
 

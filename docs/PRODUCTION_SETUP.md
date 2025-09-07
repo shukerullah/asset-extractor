@@ -13,6 +13,20 @@ ALLOWED_ORIGINS=https://your-project-abc123.vercel.app,https://your-custom-domai
 
 *Note: Comma-separated list of allowed origins. Do not include localhost in production.*
 
+**Optional:**
+```
+MODEL_NAME=u2netp
+```
+
+*AI model for background removal. Options:*
+- `u2netp` - **Recommended** - Lightweight, fast, ~300MB RAM usage
+- `u2net` - Higher quality, slower, ~600MB+ RAM usage  
+- `u2net_human_seg` - Optimized for people
+- `u2net_cloth_seg` - Optimized for clothing
+- `isnet-general-use` - General purpose alternative
+
+*Default: `u2netp` (best for Railway free tier)*
+
 ## Frontend Configuration
 
 **Environment Variables** - Set in Vercel dashboard:
