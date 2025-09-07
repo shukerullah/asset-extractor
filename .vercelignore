@@ -12,6 +12,3 @@ LICENSE
 .eslintrc.json
 eslint.config.mjs
 
-# Assets that aren't used in production
-public/assets/*.png
-public/assets/*.jpg
