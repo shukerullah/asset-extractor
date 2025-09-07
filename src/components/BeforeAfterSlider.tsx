@@ -29,7 +29,7 @@ export default function BeforeAfterSlider({
     event.preventDefault();
   }, []);
 
-  const handleTouchStart = useCallback((event: React.TouchEvent) => {
+  const handleTouchStart = useCallback((event: TouchEvent) => {
     setIsDragging(true);
     event.preventDefault();
   }, []);
@@ -49,12 +49,24 @@ export default function BeforeAfterSlider({
     setIsDragging(false);
   }, []);
 
+  // Touch event listeners setup
+  useEffect(() => {
+    const element = sliderRef.current;
+    if (!element) return;
+
+    element.addEventListener('touchstart', handleTouchStart, { passive: false });
+
+    return () => {
+      element.removeEventListener('touchstart', handleTouchStart);
+    };
+  }, [handleTouchStart]);
+
   // Global event listeners
   useEffect(() => {
     if (isDragging) {
       document.addEventListener('mousemove', handleMove);
       document.addEventListener('mouseup', handleUp);
-      document.addEventListener('touchmove', handleMove);
+      document.addEventListener('touchmove', handleMove, { passive: false });
       document.addEventListener('touchend', handleUp);
 
       return () => {
@@ -71,7 +83,6 @@ export default function BeforeAfterSlider({
       className={`${styles.beforeAfterSlider} ${className}`}
       ref={sliderRef}
       onMouseDown={handleMouseDown}
-      onTouchStart={handleTouchStart}
       style={{ touchAction: 'none' }}
     >
       {/* Before Image */}
