@@ -724,16 +724,17 @@
   }
 
   .extractedAssets {
-    flex-direction: column;
     gap: 15px;
     width: 100%;
-    max-width: 300px;
+    max-width: 100%;
     margin: 0 auto;
+    justify-content: center;
   }
 
   .assetPreview {
     height: 120px;
-    width: 100%;
+    flex: 1;
+    max-width: 120px;
   }
 
   .comparisonContainer {
