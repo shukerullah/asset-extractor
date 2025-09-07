@@ -67,118 +67,10 @@
   cursor: not-allowed;
 }
 
-/* === HERO VISUAL - BEFORE/AFTER SLIDER === */
+/* === HERO VISUAL === */
 .heroVisual {
   flex: 1;
   max-width: 600px;
-}
-
-.beforeAfterSlider {
-  width: 100%;
-  height: 300px;
-  position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  cursor: ew-resize;
-  user-select: none;
-}
-
-.beforeImage {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  z-index: 1;
-}
-
-.afterImage {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  z-index: 2;
-  transition: clip-path 0.1s ease-out;
-  /* Add subtle background to show transparency clearly */
-  background: 
-    repeating-conic-gradient(
-      #f8f9fa 0% 25%, 
-      white 0% 50%
-    ) 50% / 16px 16px;
-}
-
-.sliderHandle {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: white;
-  cursor: ew-resize;
-  z-index: 10;
-  transform: translateX(-50%);
-  transition: left 0.1s ease-out;
-}
-
-.sliderLine {
-  width: 100%;
-  height: 100%;
-  background: white;
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
-}
-
-.sliderButton {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 48px;
-  height: 48px;
-  background: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  transition: all 0.2s ease;
-}
-
-.sliderButton:hover {
-  transform: translate(-50%, -50%) scale(1.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.sliderButton svg {
-  color: #666;
-  transform: rotate(90deg);
-}
-
-.sliderLabels {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  display: flex;
-  justify-content: space-between;
-  pointer-events: none;
-  z-index: 10;
-}
-
-.beforeLabel, .afterLabel {
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  text-shadow: none;
-}
-
-.afterLabel {
-  background: rgba(59, 130, 246, 0.8);
 }
 
 /* === MAIN CONTENT === */
@@ -670,14 +562,6 @@
     gap: 60px;
   }
   
-  .beforeAfterSlider {
-    height: 250px;
-  }
-
-  .sliderButton {
-    width: 40px;
-    height: 40px;
-  }
 }
 
 /* Tablet Portrait (768px and below) */
@@ -735,25 +619,6 @@
     max-width: 100%;
   }
 
-  .beforeAfterSlider {
-    height: 200px;
-  }
-
-  .sliderButton {
-    width: 36px;
-    height: 36px;
-  }
-
-  .sliderLabels {
-    bottom: 15px;
-    left: 15px;
-    right: 15px;
-  }
-
-  .beforeLabel, .afterLabel {
-    font-size: 12px;
-    padding: 6px 10px;
-  }
 
 }
 
@@ -804,30 +669,6 @@
     max-width: 120px;
   }
 
-  .beforeAfterSlider {
-    height: 180px;
-  }
-
-  .sliderButton {
-    width: 32px;
-    height: 32px;
-  }
-
-  .sliderButton svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .sliderLabels {
-    bottom: 12px;
-    left: 12px;
-    right: 12px;
-  }
-
-  .beforeLabel, .afterLabel {
-    font-size: 11px;
-    padding: 4px 8px;
-  }
 
   .demoResults {
     flex: none;

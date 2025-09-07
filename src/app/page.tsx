@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useRef, useState, useEffect } from "react";
+import { useCallback, useRef, useState } from "react";
 
 import { BackgroundRemovalService } from "@/services/api";
 import { ImageProcessor } from "@/services/imageProcessor";
@@ -12,6 +12,7 @@ import styles from "./page.module.css";
 
 // Components
 import AssetGrid from "@/components/AssetGrid";
+import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 import ProgressBar from "@/components/ProgressBar";
 import SelectionCanvas from "@/components/SelectionCanvas";
 
@@ -36,11 +37,7 @@ export default function AssetExtractorApp() {
     resizeHandle: null,
   });
 
-  const [sliderPosition, setSliderPosition] = useState(50);
-  const [isDraggingSlider, setIsDraggingSlider] = useState(false);
-
   const selectionCounter = useRef(1);
-  const sliderRef = useRef<HTMLDivElement>(null);
 
   const imageRef = useRef<HTMLImageElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -255,49 +252,6 @@ export default function AssetExtractorApp() {
     DownloadManager.downloadAllAssets(appState.assets);
   }, [appState.assets]);
 
-  // Slider event handlers
-  const handleSliderMouseDown = useCallback((event: React.MouseEvent) => {
-    setIsDraggingSlider(true);
-    event.preventDefault();
-  }, []);
-
-  const handleSliderTouchStart = useCallback((event: React.TouchEvent) => {
-    setIsDraggingSlider(true);
-    event.preventDefault();
-  }, []);
-
-  const handleSliderMove = useCallback((event: MouseEvent | TouchEvent) => {
-    if (!isDraggingSlider || !sliderRef.current) return;
-
-    const rect = sliderRef.current.getBoundingClientRect();
-    const clientX = 'touches' in event ? event.touches[0].clientX : event.clientX;
-    const x = clientX - rect.left;
-    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
-    
-    setSliderPosition(percentage);
-  }, [isDraggingSlider]);
-
-  const handleSliderUp = useCallback(() => {
-    setIsDraggingSlider(false);
-  }, []);
-
-  // Add global mouse/touch event listeners for slider
-  useEffect(() => {
-    if (isDraggingSlider) {
-      document.addEventListener('mousemove', handleSliderMove);
-      document.addEventListener('mouseup', handleSliderUp);
-      document.addEventListener('touchmove', handleSliderMove);
-      document.addEventListener('touchend', handleSliderUp);
-
-      return () => {
-        document.removeEventListener('mousemove', handleSliderMove);
-        document.removeEventListener('mouseup', handleSliderUp);
-        document.removeEventListener('touchmove', handleSliderMove);
-        document.removeEventListener('touchend', handleSliderUp);
-      };
-    }
-  }, [isDraggingSlider, handleSliderMove, handleSliderUp]);
-
   return (
     <div className={styles.container}>
       {/* Hero Section */}
@@ -327,55 +281,12 @@ export default function AssetExtractorApp() {
             </span>
           </div>
           <div className={styles.heroVisual}>
-            <div 
-              className={styles.beforeAfterSlider}
-              ref={sliderRef}
-              onMouseDown={handleSliderMouseDown}
-              onTouchStart={handleSliderTouchStart}
-            >
-              {/* Before Image (Background) */}
-              <div className={styles.beforeImage}>
-                <Image
-                  src="/assets/village_with-background.png"
-                  alt="Village with background"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  style={{ objectFit: "cover" }}
-                  priority
-                />
-              </div>
-              
-              {/* After Image (No Background) */}
-              <div 
-                className={styles.afterImage} 
-                style={{ clipPath: `inset(0 0 0 ${sliderPosition}%)` }}
-              >
-                <Image
-                  src="/assets/village_without-background.png"
-                  alt="Village without background"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  style={{ objectFit: "cover" }}
-                  priority
-                />
-              </div>
-              
-              {/* Slider Handle */}
-              <div className={styles.sliderHandle} style={{ left: `${sliderPosition}%` }}>
-                <div className={styles.sliderLine}></div>
-                <div className={styles.sliderButton}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                    <path d="M8 7l4-4 4 4M8 17l4 4 4-4M12 3v18"/>
-                  </svg>
-                </div>
-              </div>
-              
-              {/* Labels */}
-              <div className={styles.sliderLabels}>
-                <span className={styles.beforeLabel}>Before</span>
-                <span className={styles.afterLabel}>After</span>
-              </div>
-            </div>
+            <BeforeAfterSlider
+              beforeImage="/assets/village_with-background.png"
+              afterImage="/assets/village_without-background.png"
+              beforeAlt="Village with background"
+              afterAlt="Village without background"
+            />
           </div>
         </div>
       </header>
