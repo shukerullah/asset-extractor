@@ -72,6 +72,7 @@ export default function BeforeAfterSlider({
       ref={sliderRef}
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}
+      style={{ touchAction: 'none' }}
     >
       {/* Before Image */}
       <div className={styles.beforeImage}>
