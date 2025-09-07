@@ -305,6 +305,39 @@
   font-weight: 500;
 }
 
+.instructionsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.instructionsHeader h4 {
+  margin: 0;
+}
+
+.selectionCounter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.counterText {
+  font-size: 14px;
+  color: #5f6368;
+  font-weight: 500;
+}
+
+.counterText.limitReached {
+  color: #d93025;
+}
+
+.limitWarning {
+  font-size: 12px;
+  color: #d93025;
+  font-weight: 500;
+}
+
 .workspaceSection canvas {
   max-width: 100%;
   height: auto;
@@ -699,6 +732,20 @@
     padding: 0 20px;
     flex-direction: column;
     gap: 20px;
+  }
+
+  .instructionsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .counterText {
+    font-size: 13px;
+  }
+
+  .limitWarning {
+    font-size: 11px;
   }
 
   .footerBottom {

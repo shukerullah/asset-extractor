@@ -17,6 +17,11 @@ import ProgressBar from "@/components/ProgressBar";
 import SelectionCanvas from "@/components/SelectionCanvas";
 
 export default function AssetExtractorApp() {
+  // Get selection limit from environment variable
+  const maxSelections = process.env.NEXT_PUBLIC_MAX_SELECTIONS 
+    ? parseInt(process.env.NEXT_PUBLIC_MAX_SELECTIONS, 10) 
+    : null; // null means unlimited
+
   const [appState, setAppState] = useState<AppState>({
     image: null,
     selections: [],
@@ -41,6 +46,9 @@ export default function AssetExtractorApp() {
 
   const imageRef = useRef<HTMLImageElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  // Check if selection limit is reached
+  const isSelectionLimitReached = maxSelections !== null && appState.selections.length >= maxSelections;
 
   const handleImageUpload = useCallback(async (file: File) => {
     try {
@@ -81,11 +89,22 @@ export default function AssetExtractorApp() {
 
   const handleSelectionStart = useCallback(
     (point: { x: number; y: number }) => {
-      // Clear any existing selection
+      // Check if selection limit is reached
+      if (isSelectionLimitReached) {
+        setAppState((prev) => ({
+          ...prev,
+          error: `Maximum ${maxSelections} selections allowed. Please clear some selections or generate assets first.`,
+        }));
+        return;
+      }
+
+      // Clear any existing selection and error
       setCanvasState((prev) => ({
         ...prev,
         selectedSelectionId: null,
       }));
+
+      setAppState((prev) => ({ ...prev, error: null }));
 
       setCanvasState({
         isSelecting: true,
@@ -104,7 +123,7 @@ export default function AssetExtractorApp() {
         resizeHandle: null,
       });
     },
-    []
+    [isSelectionLimitReached, maxSelections]
   );
 
   const handleSelectionUpdate = useCallback((selection: Selection) => {
@@ -457,7 +476,18 @@ export default function AssetExtractorApp() {
           <section className={styles.workspaceSection} aria-labelledby="workspace">
             <h3 id="workspace" className="sr-only">Image Selection Workspace</h3>
             <div className={styles.instructionsPanel}>
-              <h4>📝 Instructions:</h4>
+              <div className={styles.instructionsHeader}>
+                <h4>📝 Instructions:</h4>
+                <div className={styles.selectionCounter}>
+                  <span className={`${styles.counterText} ${isSelectionLimitReached ? styles.limitReached : ''}`}>
+                    Selections: {appState.selections.length}
+                    {maxSelections !== null && ` / ${maxSelections}`}
+                  </span>
+                  {isSelectionLimitReached && (
+                    <span className={styles.limitWarning}>⚠️ Limit reached</span>
+                  )}
+                </div>
+              </div>
               <p>
                 • <strong>Create:</strong> Click and drag to create rectangular
                 selections
