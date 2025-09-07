@@ -4,9 +4,9 @@ import { ImageProcessor } from "@/services/imageProcessor";
 import type { Selection, SelectionCanvasProps } from "@/types";
 import { logger } from "@/utils/logger";
 import { forwardRef, useCallback, useEffect, useRef, useState } from "react";
-import styles from "../app/page.module.css";
+import styles from "./Canvas.module.css";
 
-const SelectionCanvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
+const Canvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
   (
     {
       image,
@@ -614,6 +614,6 @@ const SelectionCanvas = forwardRef<HTMLCanvasElement, SelectionCanvasProps>(
   }
 );
 
-SelectionCanvas.displayName = "SelectionCanvas";
+Canvas.displayName = "Canvas";
 
-export default SelectionCanvas;
+export default Canvas;

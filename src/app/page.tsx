@@ -13,8 +13,8 @@ import styles from "./page.module.css";
 // Components
 import AssetGrid from "@/components/AssetGrid";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
+import CanvasSection from "@/components/CanvasSection";
 import ProgressBar from "@/components/ProgressBar";
-import SelectionCanvas from "@/components/SelectionCanvas";
 
 export default function AssetExtractorApp() {
   // Get selection limit from environment variable
@@ -473,76 +473,21 @@ export default function AssetExtractorApp() {
 
         {/* Canvas Selection Section */}
         {appState.image && (
-          <section className={styles.workspaceSection} aria-labelledby="workspace">
-            <h3 id="workspace" className="sr-only">Image Selection Workspace</h3>
-            <div className={styles.instructionsPanel}>
-              <div className={styles.instructionsHeader}>
-                <h4>📝 Instructions:</h4>
-                <div className={styles.selectionCounter}>
-                  <span className={`${styles.counterText} ${isSelectionLimitReached ? styles.limitReached : ''}`}>
-                    Selections: {appState.selections.length}
-                    {maxSelections !== null && ` / ${maxSelections}`}
-                  </span>
-                  {isSelectionLimitReached && (
-                    <span className={styles.limitWarning}>⚠️ Limit reached</span>
-                  )}
-                </div>
-              </div>
-              <p>
-                • <strong>Create:</strong> Click and drag to create rectangular
-                selections
-              </p>
-              <p>
-                • <strong>Select:</strong> Click on any selection to select it
-              </p>
-              <p>
-                • <strong>Move:</strong> Drag selected selection to move it
-              </p>
-              <p>
-                • <strong>Resize:</strong> Drag the corner/edge handles to
-                resize
-              </p>
-              <p>
-                • <strong>Delete:</strong> Press Delete/Backspace key to remove
-                selected
-              </p>
-            </div>
-
-            <SelectionCanvas
-              ref={canvasRef}
-              image={appState.image}
-              selections={appState.selections}
-              currentSelection={canvasState.currentSelection}
-              selectedSelectionId={canvasState.selectedSelectionId}
-              onSelectionStart={handleSelectionStart}
-              onSelectionUpdate={handleSelectionUpdate}
-              onSelectionComplete={handleSelectionComplete}
-              onSelectionSelect={handleSelectionSelect}
-              onSelectionMove={handleSelectionMove}
-              onSelectionResize={handleSelectionResize}
-              onSelectionDelete={handleSelectionDelete}
-              disabled={appState.loading}
-            />
-
-            {/* Controls */}
-            <div className={styles.controlsGroup}>
-              <button
-                onClick={handleClearSelections}
-                disabled={appState.loading || appState.selections.length === 0}
-                className={styles.buttonSecondary}
-              >
-                Clear All
-              </button>
-
-              <button
-                onClick={handleGenerateAssets}
-                disabled={appState.loading || appState.selections.length === 0}
-                className={styles.buttonPrimary}
-              >
-                {appState.loading ? "Processing..." : "Generate Assets"}
-              </button>
-            </div>
-          </section>
+          <CanvasSection
+            appState={appState}
+            canvasState={canvasState}
+            canvasRef={canvasRef}
+            maxSelections={maxSelections}
+            onSelectionStart={handleSelectionStart}
+            onSelectionUpdate={handleSelectionUpdate}
+            onSelectionComplete={handleSelectionComplete}
+            onSelectionSelect={handleSelectionSelect}
+            onSelectionMove={handleSelectionMove}
+            onSelectionResize={handleSelectionResize}
+            onSelectionDelete={handleSelectionDelete}
+            onClearSelections={handleClearSelections}
+            onGenerateAssets={handleGenerateAssets}
+          />
         )}
 
         {/* Progress Section */}

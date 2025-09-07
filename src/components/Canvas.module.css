@@ -1,0 +1,22 @@
+/* Canvas Component Styles */
+.canvas {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+/* Canvas is focused and ready for interaction */
+.canvas:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Loading state */
+.canvas[aria-disabled="true"] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
