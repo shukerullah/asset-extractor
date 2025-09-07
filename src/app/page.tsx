@@ -424,6 +424,7 @@ export default function AssetExtractorApp() {
                 fill
                 sizes="(max-width: 768px) 100vw, 60vw"
                 style={{ objectFit: "cover" }}
+                priority
               />
             </div>
             <div className={styles.demoResults}>
