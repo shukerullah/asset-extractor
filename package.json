@@ -1,9 +1,9 @@
 {
   "name": "asset-extractor",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "Fast, free background remover tool. Upload any image, select objects, and download transparent PNG assets instantly.",
-  "author": "Pir Shukarulalh Shah <shuker_rashdi@yahoo.com> (https://www.shukarullah.com)",
+  "description": "AI-powered background removal tool. Upload images, select objects, remove backgrounds, download transparent PNGs.",
+  "author": "Pir Shukarullah Shah <shuker_rashdi@yahoo.com> (https://www.shukarullah.com)",
   "homepage": "https://github.com/shukerullah/asset-extractor",
   "repository": {
     "type": "git",
@@ -18,33 +18,16 @@
     "asset-extractor",
     "ai",
     "nextjs",
-    "fastapi"
+    "fastapi",
+    "rembg"
   ],
-  "license": "MIT",
   "scripts": {
-    "dev": "next dev --turbopack",
-    "dev:full": "concurrently \"npm run backend\" \"npm run dev\"",
-    "backend": "cd backend && python main.py",
-    "build": "next build --turbopack",
-    "start": "next start",
-    "lint": "eslint ."
-  },
-  "dependencies": {
-    "@vercel/analytics": "^1.5.0",
-    "next": "15.5.2",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "dev:api": "cd api && python main.py",
+    "dev:web": "cd web && npm run dev",
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\""
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.1",
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "concurrently": "^9.2.1",
-    "eslint": "^9.34.0",
-    "eslint-config-next": "15.5.2",
-    "tailwindcss": "^4",
-    "typescript": "^5"
-  }
+    "concurrently": "^9.1.0"
+  },
+  "license": "MIT"
 }
