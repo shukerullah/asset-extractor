@@ -16,5 +16,5 @@ COPY main.py .
 
 EXPOSE 8000
 
-# Railway sets PORT automatically; fall back to 8000 for local Docker
+# Most platforms (Render, Railway) set PORT automatically; fall back to 8000 for local Docker
 CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}

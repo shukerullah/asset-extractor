@@ -3,7 +3,7 @@
 Asset Extractor API
 AI-powered background removal service.
 
-Single-file FastAPI backend designed for Railway deployment.
+Single-file FastAPI backend. Deploy anywhere: Render, Railway, Docker, etc.
 Models are controlled via the MODEL_NAME environment variable:
   - silueta (43MB, fast)      → recommended for hosted/free-tier
   - isnet-general-use (179MB) → recommended for self-hosting
@@ -142,7 +142,7 @@ async def root():
 
 @app.get("/health")
 async def health():
-    """Health check for Railway and uptime monitors."""
+    """Health check for deployment platforms and uptime monitors."""
     return {
         "status": "healthy" if model_session else "starting",
         "model": MODEL_NAME,

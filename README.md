@@ -18,13 +18,13 @@
 
 ```
 asset-extractor/
-├── api/   → FastAPI + rembg (Python)  → Railway
+├── api/   → FastAPI + rembg (Python)  → Any Docker host
 └── web/   → Next.js 15 (TypeScript)   → Vercel
 ```
 
 | Service | Stack | Deployment |
 |---------|-------|------------|
-| `api/`  | FastAPI, rembg, ONNX Runtime | [Railway](https://railway.app) |
+| `api/`  | FastAPI, rembg, ONNX Runtime | [Render](https://render.com), or any Docker host |
 | `web/`  | Next.js 15, TypeScript, Tailwind CSS | [Vercel](https://vercel.com) |
 
 ## Quick Start
@@ -75,23 +75,26 @@ Background removal quality and speed are controlled by the `MODEL_NAME` environm
 | `u2net_human_seg` | 176 MB | Good | Moderate | Human subjects |
 | `birefnet-general` | ~900 MB | Best | Slow | GPU environments only |
 
-**Hosted deployment** uses `silueta` — fast, lightweight, works well on Railway's free tier.
+**Hosted deployment** uses `silueta` — fast, lightweight, works well on free-tier servers.
 
 **Self-hosting?** We recommend `isnet-general-use` — significantly better quality, especially on complex images with hair, fur, or semi-transparent objects.
 
 ## Deployment
 
-### Backend → Railway
+### Backend → Render
 
-1. Create a new project on [Railway](https://railway.app/new)
-2. Import this repository
+1. Create a new Web Service on [Render](https://render.com)
+2. Connect your GitHub repository
 3. Set root directory to `api/`
-4. Add environment variables:
+4. Render auto-detects the Dockerfile
+5. Add environment variables:
    ```
    MODEL_NAME=silueta
    ALLOWED_ORIGINS=https://your-app.vercel.app
    ```
-5. Deploy — Railway uses the Dockerfile automatically
+6. Deploy
+
+> The backend uses a standard Dockerfile and works on any Docker host — Render, Railway, Fly.io, AWS, DigitalOcean, or your own server.
 
 ### Frontend → Vercel
 
@@ -99,7 +102,7 @@ Background removal quality and speed are controlled by the `MODEL_NAME` environm
 2. Set root directory to `web/`
 3. Add environment variables:
    ```
-   NEXT_PUBLIC_API_URL=https://your-api.railway.app
+   NEXT_PUBLIC_API_URL=https://your-api.onrender.com
    ```
 4. Deploy
 
@@ -110,7 +113,7 @@ Once the API is running, interactive docs are available at `/docs`.
 | Endpoint | Method | Description |
 |----------|--------|-------------|
 | `/` | GET | Service info |
-| `/health` | GET | Health check (used by Railway) |
+| `/health` | GET | Health check (used by deployment platforms) |
 | `/remove-background` | POST | Remove background from an image |
 | `/models` | GET | List available AI models |
 
