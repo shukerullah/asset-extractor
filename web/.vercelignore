@@ -1,0 +1,4 @@
+# These files are not needed for the Vercel build
+*.md
+LICENSE
+.env.example
