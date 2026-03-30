@@ -5,7 +5,7 @@ uvicorn[standard]>=0.34,<1
 # AI background removal
 # rembg manages its own onnxruntime, pillow, numpy versions.
 # Do NOT pin those separately — it causes version conflicts.
-rembg>=2.0.74
+rembg[cpu]>=2.0.74
 
 # File upload support
 python-multipart>=0.0.20
