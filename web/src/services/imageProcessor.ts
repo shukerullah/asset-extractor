@@ -29,7 +29,11 @@ export class ImageProcessor {
 
     return new Promise<Blob>((resolve, reject) => {
       canvas.toBlob((blob) => {
-        blob ? resolve(blob) : reject(new Error("Failed to create blob"));
+        if (blob) {
+          resolve(blob);
+        } else {
+          reject(new Error("Failed to create blob"));
+        }
       }, "image/png");
     });
   }
@@ -38,9 +42,11 @@ export class ImageProcessor {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => {
-        typeof reader.result === "string"
-          ? resolve(reader.result)
-          : reject(new Error("Failed to read file"));
+        if (typeof reader.result === "string") {
+          resolve(reader.result);
+        } else {
+          reject(new Error("Failed to read file"));
+        }
       };
       reader.onerror = () => reject(new Error("Failed to read file"));
       reader.readAsDataURL(file);

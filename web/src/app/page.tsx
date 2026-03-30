@@ -22,7 +22,7 @@ const maxSelections = process.env.NEXT_PUBLIC_MAX_SELECTIONS
 export default function AssetExtractorApp() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  const { image, imageElement, uploading, uploadError, upload, clearError } =
+  const { image, imageElement, uploading, uploadError, upload } =
     useImageUpload();
 
   const sel = useSelections(maxSelections);
